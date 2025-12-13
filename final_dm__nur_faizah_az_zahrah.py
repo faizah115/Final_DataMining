@@ -181,6 +181,11 @@ for cluster in sorted(df["Cluster"].unique()):
     })
 
 
+ensemble_regression_df = pd.DataFrame(ensemble_results)
+
+st.subheader("Hasil Ensemble Regresi per Cluster")
+st.dataframe(ensemble_regression_df)
+
 
 
 """Kode ini digunakan untuk melakukan ensemble regression pada setiap cluster hasil clustering, dengan tujuan memprediksi nilai Ticket_Price secara lebih stabil dan akurat. Proses dimulai dengan memisahkan data berdasarkan label cluster, kemudian untuk setiap cluster dilakukan pemodelan regresi menggunakan tiga algoritma regresi berbeda, yaitu Ridge, Lasso, dan ElasticNet, tanpa menggunakan Linear Regression. Fitur numerik dipilih sebagai variabel input, sementara Ticket_Price dijadikan sebagai variabel target. Prediksi akhir diperoleh dengan cara merata-ratakan hasil prediksi dari ketiga model regresi (ensemble averaging), sehingga dapat mengurangi bias dari satu model tunggal. Kinerja model kemudian dievaluasi menggunakan Mean Squared Error (MSE) dan R² Score.
@@ -215,12 +220,6 @@ st.download_button(
     mime="text/csv"
 )
 
-st.download_button(
-    "Download Hasil Regresi",
-    data=ensemble_regression_df.to_csv(index=False),
-    file_name="hasil_ensemble_regresi.csv",
-    mime="text/csv"
-)
 
 
 
