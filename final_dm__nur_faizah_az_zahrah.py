@@ -126,13 +126,6 @@ st.pyplot(fig1)
 Output dari proses ini adalah dua kolom baru, yaitu PCA1 dan PCA2, yang masing-masing merepresentasikan komponen utama pertama dan kedua dari hasil reduksi dimensi. Kedua kolom ini tidak mengubah jumlah baris data, melainkan hanya menambahkan informasi baru untuk keperluan visualisasi. Dengan adanya PCA1 dan PCA2, hasil clustering dapat divisualisasikan dalam bentuk scatter plot dua dimensi sehingga pemisahan antar cluster dapat diamati secara lebih jelas dan intuitif.
 """
 
-# FEATURE ENGINEERING DARI DATE
-if "Date" in df.columns:
-    df["Month"] = df["Date"].dt.month
-    df["Day"] = df["Date"].dt.day
-    df["DayOfWeek"] = df["Date"].dt.dayofweek
-
-
 
 # 6. ENSEMBLE REGRESSION (RIDGE + LASSO + ELASTICNET)
 target_column = "Ticket_Price"
@@ -191,6 +184,14 @@ st.dataframe(ensemble_regression_df)
 
 Output menunjukkan hasil evaluasi ensemble regression pada setiap cluster yang terbentuk dari proses clustering sebelumnya. Cluster 0 memiliki 202 data dengan nilai MSE sebesar 2.67×10¹⁰ dan R² Score 0.860, yang berarti model mampu menjelaskan sekitar 86% variasi harga tiket pada cluster tersebut. Cluster 1 berisi 122 data dengan MSE paling kecil (2.94×10⁹) dan R² Score tertinggi (0.976), menandakan bahwa model regresi bekerja sangat baik dan paling akurat pada cluster ini. Sementara itu, Cluster 2 memiliki 176 data dengan MSE sebesar 3.15×10¹⁰ dan R² Score 0.798, yang menunjukkan performa model masih baik namun tidak seoptimal cluster lainnya. Secara keseluruhan, nilai R² yang tinggi pada semua cluster membuktikan bahwa penggunaan ensemble regression (Ridge, Lasso, dan ElasticNet) efektif dalam memodelkan harga tiket pada masing-masing segmen data hasil clustering.
 """
+
+
+
+# FEATURE ENGINEERING DARI DATE
+if "Date" in df.columns:
+    df["Month"] = df["Date"].dt.month
+    df["Day"] = df["Date"].dt.day
+    df["DayOfWeek"] = df["Date"].dt.dayofweek
 
 
 
