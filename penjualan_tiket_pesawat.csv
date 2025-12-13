@@ -1,0 +1,501 @@
+Transaction_ID,City,Gender,Date,Ticket_Quantity,Ticket_Price,Airline,Payment_Method,Total
+1,Medan,Female,2024-03-25,5,1340246.0,Garuda,E-Wallet,6701230.0
+2,Surabaya,Female,2024-02-15,4,1935645.0,Garuda,Transfer Bank,7742580.0
+3,Medan,Female,2024-01-24,4,949000.0,Citilink,Transfer Bank,3796000.0
+4,Medan,Female,2024-01-05,5,1506013.0,Lion Air,E-Wallet,7530065.0
+5,Jakarta,Male,2024-01-30,3,842715.0,Lion Air,E-Wallet,2528145.0
+6,Medan,Female,2024-02-12,4,1097805.0,Citilink,Transfer Bank,4391220.0
+7,Medan,Male,2024-02-22,3,585177.0,Lion Air,E-Wallet,1755531.0
+8,Surabaya,Female,2024-01-24,1,977857.0,Garuda,E-Wallet,977857.0
+9,Medan,Male,2024-01-14,2,571232.0,Citilink,Credit Card,1142464.0
+10,Surabaya,Male,2024-02-05,5,604516.0,Citilink,E-Wallet,3022580.0
+11,Medan,Male,2024-01-26,4,1191578.0,Garuda,Transfer Bank,4766312.0
+12,Surabaya,Female,2024-01-13,3,1024059.0,Lion Air,E-Wallet,3072177.0
+13,Jakarta,Male,2024-01-21,5,846489.0,Citilink,Transfer Bank,4232445.0
+14,Surabaya,Female,2024-03-30,1,970551.0,Citilink,Credit Card,970551.0
+15,Medan,Female,2024-02-09,1,1911250.0,Garuda,Credit Card,1911250.0
+16,Surabaya,Female,2024-03-18,4,1589979.0,Garuda,E-Wallet,6359916.0
+17,Jakarta,Male,2024-03-25,5,1651479.0,Lion Air,Transfer Bank,8257395.0
+18,Medan,Male,2024-02-12,5,1077780.0,Lion Air,E-Wallet,5388900.0
+19,Jakarta,Female,2024-02-28,5,1482271.0,Lion Air,Transfer Bank,7411355.0
+20,Surabaya,Male,2024-02-18,1,1471857.0,Lion Air,E-Wallet,1471857.0
+21,Medan,Female,2024-02-16,1,1161216.0,Garuda,Credit Card,1161216.0
+22,Surabaya,Male,2024-01-19,2,1525558.0,Citilink,E-Wallet,3051116.0
+23,Jakarta,Female,2024-01-12,1,969551.0,Garuda,Transfer Bank,969551.0
+24,Jakarta,Female,2024-02-05,1,1242651.0,Citilink,E-Wallet,1242651.0
+25,Jakarta,Female,2024-02-02,2,1200296.0,Lion Air,Transfer Bank,2400592.0
+26,Jakarta,Female,2024-03-27,5,1917512.0,Citilink,E-Wallet,9587560.0
+27,Surabaya,Male,2024-03-02,1,1987445.0,Lion Air,E-Wallet,1987445.0
+28,Medan,Female,2024-02-10,2,513372.0,Lion Air,Transfer Bank,1026744.0
+29,Jakarta,Male,2024-03-17,5,1442072.0,Garuda,Credit Card,7210360.0
+30,Medan,Male,2024-01-19,3,1167937.0,Garuda,Credit Card,3503811.0
+31,Jakarta,Male,2024-01-31,2,511034.0,Citilink,Credit Card,1022068.0
+32,Jakarta,Female,2024-02-19,2,1410704.0,Citilink,E-Wallet,2821408.0
+33,Surabaya,Male,2024-02-11,5,994285.0,Lion Air,Transfer Bank,4971425.0
+34,Jakarta,Female,2024-01-17,4,1552434.0,Lion Air,E-Wallet,6209736.0
+35,Surabaya,Male,2024-03-08,3,1487645.0,Citilink,Transfer Bank,4462935.0
+36,Jakarta,Female,2024-01-06,1,848168.0,Garuda,Credit Card,848168.0
+37,Jakarta,Female,2024-02-29,4,709567.0,Garuda,E-Wallet,2838268.0
+38,Jakarta,Male,2024-01-19,5,882761.0,Lion Air,E-Wallet,4413805.0
+39,Medan,Male,2024-02-27,5,692456.0,Garuda,Credit Card,3462280.0
+40,Surabaya,Female,2024-03-27,5,1379715.0,Citilink,Transfer Bank,6898575.0
+41,Surabaya,Male,2024-02-09,4,1429307.0,Citilink,E-Wallet,5717228.0
+42,Medan,Male,2024-02-14,5,558142.0,Lion Air,Credit Card,2790710.0
+43,Medan,Female,2024-02-11,3,1532874.0,Garuda,Transfer Bank,4598622.0
+44,Medan,Female,2024-03-10,4,1802709.0,Lion Air,E-Wallet,7210836.0
+45,Surabaya,Female,2024-01-24,3,1957470.0,Citilink,Credit Card,5872410.0
+46,Jakarta,Female,2024-01-22,3,894389.0,Garuda,E-Wallet,2683167.0
+47,Jakarta,Female,2024-02-22,5,1629316.0,Lion Air,Transfer Bank,8146580.0
+48,Medan,Male,2024-03-25,3,1286753.0,Citilink,Credit Card,3860259.0
+49,Surabaya,Male,2024-03-18,4,882303.0,Garuda,E-Wallet,3529212.0
+50,Jakarta,Female,2024-01-24,5,563102.0,Garuda,Credit Card,2815510.0
+51,Medan,Female,2024-01-25,1,939578.0,Garuda,Credit Card,939578.0
+52,Medan,Female,2024-01-17,2,1088486.0,Garuda,Credit Card,2176972.0
+53,Medan,Male,2024-02-04,1,1917116.0,Garuda,Transfer Bank,1917116.0
+54,Medan,Female,2024-03-21,4,933063.0,Lion Air,Credit Card,3732252.0
+55,Surabaya,Male,2024-02-25,5,1991464.0,Garuda,Transfer Bank,9957320.0
+56,Medan,Female,2024-01-28,4,1872180.0,Citilink,Credit Card,7488720.0
+57,Jakarta,Female,2024-03-06,5,1099882.0,Lion Air,Credit Card,5499410.0
+58,Surabaya,Male,2024-02-03,2,775944.0,Lion Air,E-Wallet,1551888.0
+59,Jakarta,Male,2024-03-05,3,1621873.0,Citilink,Transfer Bank,4865619.0
+60,Medan,Male,2024-01-03,3,1639951.0,Citilink,Transfer Bank,4919853.0
+61,Jakarta,Male,2024-02-28,3,799252.0,Citilink,Transfer Bank,2397756.0
+62,Medan,Male,2024-02-25,2,937740.0,Garuda,Credit Card,1875480.0
+63,Surabaya,Female,2024-01-22,4,1740361.0,Citilink,Transfer Bank,6961444.0
+64,Medan,Male,2024-02-11,1,1535476.0,Garuda,E-Wallet,1535476.0
+65,Jakarta,Male,2024-01-04,1,1243677.0,Lion Air,Transfer Bank,1243677.0
+66,Medan,Female,2024-03-19,1,769487.0,Garuda,E-Wallet,769487.0
+67,Medan,Male,2024-01-12,2,1946688.0,Lion Air,Transfer Bank,3893376.0
+68,Jakarta,Male,2024-02-06,4,1649205.0,Lion Air,E-Wallet,6596820.0
+69,Medan,Male,2024-02-10,4,603024.0,Citilink,Credit Card,2412096.0
+70,Surabaya,Male,2024-02-27,4,1132431.0,Garuda,Credit Card,4529724.0
+71,Medan,Female,2024-03-03,1,662066.0,Lion Air,Transfer Bank,662066.0
+72,Surabaya,Female,2024-03-11,1,1658924.0,Lion Air,Credit Card,1658924.0
+73,Surabaya,Female,2024-01-05,1,1611111.0,Garuda,E-Wallet,1611111.0
+74,Medan,Female,2024-03-31,1,1714550.0,Lion Air,Transfer Bank,1714550.0
+75,Jakarta,Male,2024-03-29,2,627751.0,Garuda,Credit Card,1255502.0
+76,Jakarta,Male,2024-01-17,1,686391.0,Garuda,Transfer Bank,686391.0
+77,Surabaya,Male,2024-01-28,4,1058847.0,Lion Air,E-Wallet,4235388.0
+78,Jakarta,Female,2024-01-27,4,1099113.0,Garuda,Transfer Bank,4396452.0
+79,Medan,Female,2024-02-22,4,1628763.0,Citilink,Transfer Bank,6515052.0
+80,Surabaya,Male,2024-01-26,5,1468641.0,Citilink,Credit Card,7343205.0
+81,Surabaya,Female,2024-02-18,4,1571537.0,Garuda,E-Wallet,6286148.0
+82,Jakarta,Male,2024-02-29,2,1646381.0,Lion Air,E-Wallet,3292762.0
+83,Surabaya,Male,2024-01-27,2,1650227.0,Lion Air,Credit Card,3300454.0
+84,Surabaya,Male,2024-03-21,1,684026.0,Citilink,E-Wallet,684026.0
+85,Jakarta,Male,2024-02-07,4,1263949.0,Garuda,Transfer Bank,5055796.0
+86,Jakarta,Female,2024-03-20,4,1412191.0,Citilink,Credit Card,5648764.0
+87,Surabaya,Male,2024-01-09,4,1029840.0,Citilink,Transfer Bank,4119360.0
+88,Medan,Male,2024-02-01,2,1416662.0,Garuda,Credit Card,2833324.0
+89,Surabaya,Male,2024-01-01,2,847595.0,Lion Air,Credit Card,1695190.0
+90,Surabaya,Male,2024-01-09,4,1883671.0,Lion Air,Transfer Bank,7534684.0
+91,Surabaya,Male,2024-02-19,1,1322037.0,Garuda,Credit Card,1322037.0
+92,Medan,Female,2024-03-11,1,1974195.0,Lion Air,Credit Card,1974195.0
+93,Jakarta,Female,2024-02-06,2,1818346.0,Garuda,Transfer Bank,3636692.0
+94,Medan,Male,2024-01-06,5,987973.0,Lion Air,Credit Card,4939865.0
+95,Medan,Male,2024-02-06,4,558009.0,Garuda,Transfer Bank,2232036.0
+96,Surabaya,Male,2024-02-08,2,1948163.0,Lion Air,E-Wallet,3896326.0
+97,Medan,Male,2024-01-04,4,1132692.0,Citilink,E-Wallet,4530768.0
+98,Medan,Female,2024-02-18,2,1888139.0,Lion Air,Transfer Bank,3776278.0
+99,Surabaya,Female,2024-02-06,2,1722104.0,Lion Air,Credit Card,3444208.0
+100,Medan,Male,2024-03-14,3,1446266.0,Garuda,Transfer Bank,4338798.0
+101,Jakarta,Female,2024-01-10,5,1011218.0,Citilink,E-Wallet,5056090.0
+102,Medan,Male,2024-01-08,2,1661978.0,Citilink,Transfer Bank,3323956.0
+103,Medan,Male,2024-01-23,3,1286799.0,Lion Air,Transfer Bank,3860397.0
+104,Surabaya,Male,2024-03-11,2,1386295.0,Garuda,E-Wallet,2772590.0
+105,Surabaya,Female,2024-03-03,3,1144911.0,Lion Air,Transfer Bank,3434733.0
+106,Medan,Male,2024-03-06,3,546721.0,Garuda,Transfer Bank,1640163.0
+107,Medan,Female,2024-02-07,5,997698.0,Citilink,Transfer Bank,4988490.0
+108,Jakarta,Male,2024-01-20,4,887273.0,Lion Air,Transfer Bank,3549092.0
+109,Surabaya,Female,2024-01-31,4,802891.0,Garuda,Transfer Bank,3211564.0
+110,Surabaya,Male,2024-01-30,3,1321408.0,Garuda,E-Wallet,3964224.0
+111,Jakarta,Male,2024-02-17,2,761821.0,Lion Air,Credit Card,1523642.0
+112,Surabaya,Female,2024-03-29,5,818807.0,Citilink,Transfer Bank,4094035.0
+113,Jakarta,Female,2024-01-10,5,850569.0,Garuda,E-Wallet,4252845.0
+114,Surabaya,Male,2024-02-29,5,1208819.0,Garuda,Transfer Bank,6044095.0
+115,Medan,Female,2024-03-21,2,1957738.0,Lion Air,E-Wallet,3915476.0
+116,Medan,Male,2024-01-09,4,1264352.0,Garuda,Transfer Bank,5057408.0
+117,Jakarta,Male,2024-02-27,5,984355.0,Garuda,Credit Card,4921775.0
+118,Surabaya,Male,2024-02-01,4,1302062.0,Citilink,Transfer Bank,5208248.0
+119,Surabaya,Male,2024-03-28,4,1437493.0,Citilink,Credit Card,5749972.0
+120,Surabaya,Male,2024-01-16,2,1430987.0,Garuda,Transfer Bank,2861974.0
+121,Jakarta,Male,2024-01-12,1,1581011.0,Lion Air,Credit Card,1581011.0
+122,Surabaya,Female,2024-02-04,4,1193469.0,Citilink,E-Wallet,4773876.0
+123,Surabaya,Female,2024-02-16,5,1979671.0,Citilink,E-Wallet,9898355.0
+124,Jakarta,Male,2024-01-17,2,774897.0,Citilink,Transfer Bank,1549794.0
+125,Medan,Female,2024-01-29,2,559427.0,Citilink,Credit Card,1118854.0
+126,Surabaya,Female,2024-02-26,2,1049793.0,Lion Air,Transfer Bank,2099586.0
+127,Medan,Male,2024-02-05,5,1214021.0,Garuda,Transfer Bank,6070105.0
+128,Jakarta,Female,2024-03-08,3,679362.0,Lion Air,Transfer Bank,2038086.0
+129,Surabaya,Female,2024-01-07,2,1117484.0,Citilink,E-Wallet,2234968.0
+130,Jakarta,Male,2024-01-19,4,509210.0,Garuda,Transfer Bank,2036840.0
+131,Medan,Female,2024-01-28,2,588574.0,Citilink,E-Wallet,1177148.0
+132,Jakarta,Male,2024-03-26,3,942948.0,Garuda,Transfer Bank,2828844.0
+133,Jakarta,Female,2024-01-21,4,1765151.0,Lion Air,E-Wallet,7060604.0
+134,Medan,Female,2024-01-05,4,1762904.0,Garuda,Transfer Bank,7051616.0
+135,Jakarta,Female,2024-02-18,4,1442276.0,Garuda,Transfer Bank,5769104.0
+136,Medan,Male,2024-01-01,2,946909.0,Garuda,E-Wallet,1893818.0
+137,Surabaya,Female,2024-03-04,2,1224026.0,Lion Air,E-Wallet,2448052.0
+138,Jakarta,Male,2024-03-24,4,1894633.0,Lion Air,Credit Card,7578532.0
+139,Jakarta,Female,2024-01-28,3,617181.0,Lion Air,Transfer Bank,1851543.0
+140,Jakarta,Female,2024-02-13,1,884537.0,Lion Air,Transfer Bank,884537.0
+141,Jakarta,Male,2024-02-17,4,583448.0,Garuda,Credit Card,2333792.0
+142,Jakarta,Male,2024-01-12,3,728278.0,Citilink,E-Wallet,2184834.0
+143,Jakarta,Female,2024-01-18,3,738358.0,Lion Air,E-Wallet,2215074.0
+144,Surabaya,Male,2024-02-14,3,1004524.0,Lion Air,Credit Card,3013572.0
+145,Jakarta,Female,2024-02-20,4,1555240.0,Lion Air,Transfer Bank,6220960.0
+146,Jakarta,Female,2024-01-05,4,938542.0,Lion Air,Credit Card,3754168.0
+147,Jakarta,Female,2024-01-31,1,1364288.0,Lion Air,E-Wallet,1364288.0
+148,Medan,Female,2024-03-06,3,1495813.0,Citilink,E-Wallet,4487439.0
+149,Medan,Female,2024-02-14,2,1361135.0,Lion Air,E-Wallet,2722270.0
+150,Surabaya,Female,2024-02-28,5,544123.0,Lion Air,Credit Card,2720615.0
+151,Surabaya,Male,2024-03-13,5,1070038.0,Garuda,Transfer Bank,5350190.0
+152,Jakarta,Male,2024-01-02,3,660757.0,Citilink,E-Wallet,1982271.0
+153,Medan,Male,2024-03-22,5,842216.0,Garuda,Transfer Bank,4211080.0
+154,Medan,Male,2024-02-25,5,1503075.0,Lion Air,E-Wallet,7515375.0
+155,Surabaya,Female,2024-02-04,4,1403850.0,Citilink,E-Wallet,5615400.0
+156,Medan,Female,2024-02-13,4,860624.0,Garuda,E-Wallet,3442496.0
+157,Medan,Male,2024-01-25,1,920551.0,Garuda,E-Wallet,920551.0
+158,Jakarta,Female,2024-01-16,3,780221.0,Citilink,Transfer Bank,2340663.0
+159,Medan,Female,2024-02-27,5,1105099.0,Lion Air,Credit Card,5525495.0
+160,Jakarta,Female,2024-02-10,4,718610.0,Citilink,E-Wallet,2874440.0
+161,Jakarta,Female,2024-02-13,5,1765726.0,Garuda,Transfer Bank,8828630.0
+162,Surabaya,Male,2024-01-20,5,778670.0,Lion Air,E-Wallet,3893350.0
+163,Medan,Female,2024-02-28,2,705132.0,Garuda,Credit Card,1410264.0
+164,Surabaya,Female,2024-03-08,3,849681.0,Lion Air,E-Wallet,2549043.0
+165,Surabaya,Female,2024-02-01,4,1048571.0,Lion Air,E-Wallet,4194284.0
+166,Jakarta,Female,2024-03-24,4,1719762.0,Garuda,Credit Card,6879048.0
+167,Surabaya,Male,2024-03-04,2,1871433.0,Citilink,E-Wallet,3742866.0
+168,Surabaya,Female,2024-02-08,4,1334600.0,Citilink,Transfer Bank,5338400.0
+169,Medan,Female,2024-01-15,2,1694923.0,Citilink,E-Wallet,3389846.0
+170,Jakarta,Female,2024-01-18,3,1543246.0,Citilink,Credit Card,4629738.0
+171,Surabaya,Male,2024-03-11,1,581702.0,Garuda,Credit Card,581702.0
+172,Surabaya,Male,2024-03-07,5,1599658.0,Lion Air,E-Wallet,7998290.0
+173,Jakarta,Female,2024-03-12,1,1798332.0,Lion Air,E-Wallet,1798332.0
+174,Medan,Male,2024-01-29,2,1453593.0,Citilink,E-Wallet,2907186.0
+175,Surabaya,Male,2024-03-12,5,739217.0,Citilink,E-Wallet,3696085.0
+176,Surabaya,Male,2024-01-01,5,1988260.0,Garuda,Credit Card,9941300.0
+177,Medan,Female,2024-03-25,3,1712244.0,Garuda,Credit Card,5136732.0
+178,Surabaya,Female,2024-02-14,5,1131515.0,Lion Air,Transfer Bank,5657575.0
+179,Medan,Female,2024-03-06,5,1681102.0,Garuda,E-Wallet,8405510.0
+180,Medan,Female,2024-02-03,2,1291450.0,Garuda,Credit Card,2582900.0
+181,Medan,Female,2024-01-21,2,1609891.0,Garuda,E-Wallet,3219782.0
+182,Surabaya,Male,2024-02-17,2,1617177.0,Garuda,Transfer Bank,3234354.0
+183,Surabaya,Male,2024-02-02,5,1633124.0,Lion Air,Credit Card,8165620.0
+184,Medan,Male,2024-02-26,3,535954.0,Garuda,Credit Card,1607862.0
+185,Medan,Male,2024-02-09,2,516818.0,Citilink,Transfer Bank,1033636.0
+186,Medan,Female,2024-03-11,5,1977057.0,Garuda,Transfer Bank,9885285.0
+187,Surabaya,Male,2024-01-15,2,1611559.0,Garuda,Transfer Bank,3223118.0
+188,Surabaya,Male,2024-03-13,3,1740209.0,Garuda,E-Wallet,5220627.0
+189,Medan,Male,2024-01-30,5,696823.0,Lion Air,E-Wallet,3484115.0
+190,Medan,Female,2024-02-13,2,978498.0,Lion Air,Transfer Bank,1956996.0
+191,Jakarta,Female,2024-02-24,3,1983588.0,Lion Air,Transfer Bank,5950764.0
+192,Jakarta,Male,2024-01-17,2,554480.0,Citilink,Credit Card,1108960.0
+193,Medan,Male,2024-02-08,1,1542197.0,Garuda,Transfer Bank,1542197.0
+194,Surabaya,Female,2024-02-17,5,746902.0,Citilink,Transfer Bank,3734510.0
+195,Medan,Female,2024-03-25,4,1064037.0,Lion Air,Credit Card,4256148.0
+196,Medan,Female,2024-01-03,5,1883886.0,Citilink,Transfer Bank,9419430.0
+197,Surabaya,Female,2024-02-06,1,1232660.0,Lion Air,Credit Card,1232660.0
+198,Surabaya,Male,2024-01-17,4,1632395.0,Garuda,Transfer Bank,6529580.0
+199,Medan,Female,2024-03-21,4,608109.0,Lion Air,Transfer Bank,2432436.0
+200,Medan,Female,2024-03-15,2,1060058.0,Citilink,Credit Card,2120116.0
+201,Surabaya,Male,2024-03-14,4,523026.0,Citilink,E-Wallet,2092104.0
+202,Medan,Female,2024-03-05,5,1818521.0,Garuda,Transfer Bank,9092605.0
+203,Jakarta,Female,2024-03-14,3,1606432.0,Garuda,E-Wallet,4819296.0
+204,Jakarta,Male,2024-01-25,1,694979.0,Citilink,Credit Card,694979.0
+205,Jakarta,Female,2024-01-16,2,1161138.0,Garuda,Transfer Bank,2322276.0
+206,Jakarta,Female,2024-02-24,3,682306.0,Lion Air,Credit Card,2046918.0
+207,Surabaya,Female,2024-02-28,4,1369039.0,Garuda,Credit Card,5476156.0
+208,Jakarta,Female,2024-02-01,2,1847116.0,Garuda,E-Wallet,3694232.0
+209,Jakarta,Male,2024-03-03,2,1952040.0,Garuda,Transfer Bank,3904080.0
+210,Jakarta,Male,2024-02-21,1,1203644.0,Citilink,Transfer Bank,1203644.0
+211,Surabaya,Female,2024-01-25,1,1743249.0,Citilink,E-Wallet,1743249.0
+212,Medan,Female,2024-01-13,2,1652437.0,Lion Air,Transfer Bank,3304874.0
+213,Surabaya,Male,2024-03-20,2,518613.0,Lion Air,Transfer Bank,1037226.0
+214,Surabaya,Male,2024-03-24,4,758027.0,Citilink,E-Wallet,3032108.0
+215,Surabaya,Male,2024-01-28,4,835826.0,Garuda,Transfer Bank,3343304.0
+216,Jakarta,Male,2024-02-29,5,635083.0,Garuda,E-Wallet,3175415.0
+217,Surabaya,Female,2024-01-08,2,924910.0,Lion Air,E-Wallet,1849820.0
+218,Jakarta,Female,2024-01-31,4,1011531.0,Lion Air,Credit Card,4046124.0
+219,Medan,Female,2024-03-02,1,1140956.0,Citilink,E-Wallet,1140956.0
+220,Medan,Female,2024-02-03,5,1874284.0,Citilink,E-Wallet,9371420.0
+221,Jakarta,Male,2024-02-11,3,1270278.0,Garuda,Credit Card,3810834.0
+222,Jakarta,Male,2024-03-24,5,704249.0,Citilink,Credit Card,3521245.0
+223,Medan,Female,2024-03-09,1,1234672.0,Lion Air,E-Wallet,1234672.0
+224,Surabaya,Female,2024-03-31,2,1270356.0,Garuda,E-Wallet,2540712.0
+225,Surabaya,Male,2024-02-06,3,967992.0,Garuda,Credit Card,2903976.0
+226,Surabaya,Male,2024-01-31,5,1394506.0,Lion Air,Credit Card,6972530.0
+227,Surabaya,Male,2024-02-02,4,960207.0,Garuda,Credit Card,3840828.0
+228,Surabaya,Female,2024-03-21,2,923170.0,Lion Air,Credit Card,1846340.0
+229,Medan,Male,2024-02-12,2,1811182.0,Garuda,E-Wallet,3622364.0
+230,Medan,Male,2024-01-23,5,1109955.0,Citilink,Transfer Bank,5549775.0
+231,Surabaya,Female,2024-02-14,3,1263812.0,Lion Air,Transfer Bank,3791436.0
+232,Medan,Female,2024-02-10,3,1425936.0,Citilink,Transfer Bank,4277808.0
+233,Jakarta,Female,2024-03-21,4,1426705.0,Garuda,E-Wallet,5706820.0
+234,Surabaya,Female,2024-01-18,1,1423399.0,Lion Air,E-Wallet,1423399.0
+235,Jakarta,Male,2024-01-14,1,1649282.0,Lion Air,Credit Card,1649282.0
+236,Surabaya,Male,2024-01-16,4,925312.0,Lion Air,E-Wallet,3701248.0
+237,Surabaya,Male,2024-01-24,3,1690803.0,Garuda,Transfer Bank,5072409.0
+238,Medan,Female,2024-03-07,4,1312179.0,Lion Air,E-Wallet,5248716.0
+239,Surabaya,Male,2024-01-13,5,1837138.0,Lion Air,Credit Card,9185690.0
+240,Medan,Male,2024-02-08,2,1904827.0,Citilink,Credit Card,3809654.0
+241,Jakarta,Male,2024-01-21,5,602037.0,Garuda,E-Wallet,3010185.0
+242,Medan,Male,2024-03-01,5,1132369.0,Citilink,E-Wallet,5661845.0
+243,Surabaya,Female,2024-01-19,3,1820015.0,Citilink,Credit Card,5460045.0
+244,Surabaya,Female,2024-03-20,2,1191043.0,Citilink,E-Wallet,2382086.0
+245,Jakarta,Female,2024-01-28,1,1866265.0,Lion Air,Transfer Bank,1866265.0
+246,Surabaya,Male,2024-03-09,3,524749.0,Citilink,Transfer Bank,1574247.0
+247,Jakarta,Female,2024-01-08,3,1321538.0,Citilink,Credit Card,3964614.0
+248,Medan,Male,2024-01-15,5,938344.0,Garuda,E-Wallet,4691720.0
+249,Jakarta,Female,2024-03-13,2,828298.0,Lion Air,Transfer Bank,1656596.0
+250,Surabaya,Male,2024-01-18,5,1154117.0,Citilink,E-Wallet,5770585.0
+251,Surabaya,Male,2024-01-20,5,1994570.0,Lion Air,Transfer Bank,9972850.0
+252,Medan,Female,2024-02-14,2,901764.0,Lion Air,E-Wallet,1803528.0
+253,Jakarta,Female,2024-02-28,3,1797831.0,Lion Air,Credit Card,5393493.0
+254,Jakarta,Female,2024-01-26,1,836633.0,Citilink,E-Wallet,836633.0
+255,Jakarta,Male,2024-03-06,3,1601872.0,Citilink,E-Wallet,4805616.0
+256,Surabaya,Female,2024-02-07,3,965170.0,Lion Air,Credit Card,2895510.0
+257,Jakarta,Male,2024-01-06,3,581857.0,Garuda,Credit Card,1745571.0
+258,Surabaya,Male,2024-01-03,2,1827793.0,Lion Air,Transfer Bank,3655586.0
+259,Jakarta,Female,2024-01-21,3,1289357.0,Garuda,Credit Card,3868071.0
+260,Surabaya,Female,2024-03-27,2,1925497.0,Citilink,Transfer Bank,3850994.0
+261,Medan,Female,2024-03-30,2,1568706.0,Lion Air,Transfer Bank,3137412.0
+262,Medan,Female,2024-02-18,1,816316.0,Lion Air,Transfer Bank,816316.0
+263,Medan,Male,2024-01-22,5,1497898.0,Garuda,Credit Card,7489490.0
+264,Jakarta,Female,2024-03-24,2,1615328.0,Lion Air,Transfer Bank,3230656.0
+265,Surabaya,Female,2024-02-14,1,1810540.0,Citilink,Transfer Bank,1810540.0
+266,Jakarta,Female,2024-01-30,5,1654130.0,Garuda,Credit Card,8270650.0
+267,Jakarta,Female,2024-02-01,2,1513421.0,Citilink,Credit Card,3026842.0
+268,Medan,Female,2024-01-02,4,840292.0,Garuda,Transfer Bank,3361168.0
+269,Jakarta,Male,2024-02-17,5,564991.0,Garuda,Credit Card,2824955.0
+270,Medan,Male,2024-02-08,5,851897.0,Garuda,Credit Card,4259485.0
+271,Surabaya,Male,2024-01-30,3,966620.0,Lion Air,E-Wallet,2899860.0
+272,Jakarta,Male,2024-02-01,5,1222422.0,Garuda,Credit Card,6112110.0
+273,Medan,Male,2024-01-27,4,1147194.0,Garuda,E-Wallet,4588776.0
+274,Medan,Male,2024-01-12,1,957581.0,Citilink,E-Wallet,957581.0
+275,Jakarta,Female,2024-02-15,3,1479221.0,Citilink,Credit Card,4437663.0
+276,Medan,Male,2024-03-27,1,844964.0,Garuda,E-Wallet,844964.0
+277,Surabaya,Female,2024-03-19,2,1744271.0,Lion Air,Transfer Bank,3488542.0
+278,Jakarta,Male,2024-02-29,5,1793780.0,Garuda,Transfer Bank,8968900.0
+279,Surabaya,Female,2024-02-19,1,1760631.0,Garuda,Transfer Bank,1760631.0
+280,Jakarta,Male,2024-03-07,3,647510.0,Citilink,E-Wallet,1942530.0
+281,Surabaya,Female,2024-03-19,1,1688762.0,Lion Air,E-Wallet,1688762.0
+282,Medan,Female,2024-03-09,1,1647177.0,Lion Air,Credit Card,1647177.0
+283,Medan,Female,2024-02-09,1,1294239.0,Garuda,E-Wallet,1294239.0
+284,Medan,Female,2024-01-10,2,1457253.0,Lion Air,Transfer Bank,2914506.0
+285,Medan,Female,2024-02-15,3,1790118.0,Lion Air,E-Wallet,5370354.0
+286,Medan,Male,2024-03-26,2,575185.0,Citilink,Transfer Bank,1150370.0
+287,Medan,Female,2024-01-03,3,1087477.0,Garuda,Transfer Bank,3262431.0
+288,Surabaya,Male,2024-02-19,5,891748.0,Lion Air,Credit Card,4458740.0
+289,Jakarta,Female,2024-02-08,4,1069906.0,Citilink,Credit Card,4279624.0
+290,Jakarta,Male,2024-02-13,2,579056.0,Garuda,E-Wallet,1158112.0
+291,Surabaya,Female,2024-03-06,2,1529317.0,Citilink,E-Wallet,3058634.0
+292,Surabaya,Male,2024-02-23,4,1911016.0,Citilink,Credit Card,7644064.0
+293,Medan,Male,2024-02-26,4,962172.0,Garuda,E-Wallet,3848688.0
+294,Medan,Male,2024-03-29,3,1859466.0,Garuda,Transfer Bank,5578398.0
+295,Surabaya,Female,2024-02-07,3,746142.0,Lion Air,Transfer Bank,2238426.0
+296,Surabaya,Male,2024-01-30,1,719950.0,Citilink,E-Wallet,719950.0
+297,Medan,Male,2024-03-10,1,1317490.0,Garuda,E-Wallet,1317490.0
+298,Jakarta,Male,2024-03-19,5,921788.0,Citilink,E-Wallet,4608940.0
+299,Surabaya,Male,2024-01-21,4,1333664.0,Garuda,Transfer Bank,5334656.0
+300,Medan,Male,2024-02-27,4,1105268.0,Lion Air,Transfer Bank,4421072.0
+301,Surabaya,Female,2024-03-24,5,1852412.0,Garuda,E-Wallet,9262060.0
+302,Medan,Male,2024-01-13,3,704669.0,Garuda,Credit Card,2114007.0
+303,Medan,Female,2024-03-15,1,1083563.0,Garuda,E-Wallet,1083563.0
+304,Surabaya,Female,2024-03-08,1,1658964.0,Garuda,Transfer Bank,1658964.0
+305,Surabaya,Female,2024-02-22,3,735078.0,Citilink,Credit Card,2205234.0
+306,Surabaya,Female,2024-02-03,4,1319518.0,Lion Air,Transfer Bank,5278072.0
+307,Surabaya,Female,2024-03-18,1,1596909.0,Citilink,E-Wallet,1596909.0
+308,Surabaya,Female,2024-02-28,4,1284048.0,Garuda,Credit Card,5136192.0
+309,Surabaya,Female,2024-02-27,5,1854520.0,Citilink,E-Wallet,9272600.0
+310,Surabaya,Male,2024-02-07,1,1165635.0,Lion Air,E-Wallet,1165635.0
+311,Surabaya,Female,2024-01-12,5,874993.0,Lion Air,Transfer Bank,4374965.0
+312,Surabaya,Male,2024-03-18,4,965886.0,Garuda,Transfer Bank,3863544.0
+313,Surabaya,Female,2024-02-25,4,1706196.0,Citilink,Credit Card,6824784.0
+314,Surabaya,Female,2024-01-14,5,1752890.0,Garuda,E-Wallet,8764450.0
+315,Medan,Male,2024-03-29,4,1580942.0,Garuda,E-Wallet,6323768.0
+316,Medan,Female,2024-01-19,2,704455.0,Lion Air,E-Wallet,1408910.0
+317,Surabaya,Male,2024-03-22,1,1241150.0,Lion Air,E-Wallet,1241150.0
+318,Surabaya,Female,2024-03-16,4,1653548.0,Citilink,Credit Card,6614192.0
+319,Surabaya,Female,2024-03-07,3,649486.0,Lion Air,Transfer Bank,1948458.0
+320,Jakarta,Female,2024-02-23,3,1213953.0,Garuda,Credit Card,3641859.0
+321,Medan,Female,2024-03-13,5,1821093.0,Garuda,Credit Card,9105465.0
+322,Jakarta,Female,2024-01-28,3,689453.0,Citilink,E-Wallet,2068359.0
+323,Medan,Male,2024-03-26,4,1239031.0,Garuda,Transfer Bank,4956124.0
+324,Jakarta,Female,2024-01-01,4,744146.0,Citilink,Credit Card,2976584.0
+325,Medan,Female,2024-01-12,5,1792714.0,Lion Air,Credit Card,8963570.0
+326,Jakarta,Female,2024-03-08,1,754881.0,Lion Air,E-Wallet,754881.0
+327,Jakarta,Female,2024-03-28,1,594351.0,Citilink,E-Wallet,594351.0
+328,Medan,Female,2024-03-03,1,802393.0,Garuda,Transfer Bank,802393.0
+329,Medan,Female,2024-03-01,4,1303929.0,Garuda,Credit Card,5215716.0
+330,Medan,Male,2024-01-03,3,1821258.0,Garuda,Credit Card,5463774.0
+331,Surabaya,Female,2024-01-06,5,655069.0,Lion Air,E-Wallet,3275345.0
+332,Medan,Male,2024-01-01,2,1995007.0,Garuda,E-Wallet,3990014.0
+333,Surabaya,Female,2024-03-21,4,1936221.0,Lion Air,Credit Card,7744884.0
+334,Jakarta,Female,2024-01-03,4,652810.0,Garuda,E-Wallet,2611240.0
+335,Jakarta,Female,2024-02-20,5,1867369.0,Lion Air,E-Wallet,9336845.0
+336,Medan,Male,2024-01-03,3,1981615.0,Citilink,E-Wallet,5944845.0
+337,Medan,Male,2024-01-09,2,1931065.0,Citilink,Transfer Bank,3862130.0
+338,Surabaya,Male,2024-01-18,3,1080734.0,Citilink,E-Wallet,3242202.0
+339,Medan,Female,2024-01-26,2,1390929.0,Garuda,Credit Card,2781858.0
+340,Surabaya,Female,2024-01-22,3,658952.0,Garuda,Credit Card,1976856.0
+341,Medan,Female,2024-03-05,1,1528017.0,Garuda,Transfer Bank,1528017.0
+342,Surabaya,Male,2024-03-23,1,823859.0,Garuda,E-Wallet,823859.0
+343,Jakarta,Male,2024-03-10,2,719320.0,Lion Air,Transfer Bank,1438640.0
+344,Surabaya,Female,2024-01-26,4,934943.0,Citilink,Credit Card,3739772.0
+345,Surabaya,Female,2024-03-25,1,1121938.0,Citilink,E-Wallet,1121938.0
+346,Surabaya,Male,2024-03-02,5,1009502.0,Citilink,Credit Card,5047510.0
+347,Medan,Female,2024-03-09,5,1380733.0,Lion Air,Transfer Bank,6903665.0
+348,Medan,Female,2024-03-22,3,601219.0,Citilink,Transfer Bank,1803657.0
+349,Medan,Female,2024-01-15,1,889850.0,Citilink,Credit Card,889850.0
+350,Jakarta,Female,2024-01-20,4,1107078.0,Garuda,E-Wallet,4428312.0
+351,Medan,Male,2024-02-17,3,1358065.0,Lion Air,Transfer Bank,4074195.0
+352,Surabaya,Female,2024-01-28,5,1160232.0,Garuda,E-Wallet,5801160.0
+353,Surabaya,Male,2024-02-26,3,1176630.0,Citilink,Transfer Bank,3529890.0
+354,Medan,Male,2024-02-06,2,1163360.0,Lion Air,Transfer Bank,2326720.0
+355,Medan,Male,2024-02-20,3,1723191.0,Lion Air,Credit Card,5169573.0
+356,Jakarta,Female,2024-03-13,3,793710.0,Lion Air,E-Wallet,2381130.0
+357,Surabaya,Male,2024-03-30,4,1845278.0,Garuda,Credit Card,7381112.0
+358,Jakarta,Female,2024-01-20,1,1013383.0,Garuda,Credit Card,1013383.0
+359,Jakarta,Female,2024-01-07,5,1871905.0,Lion Air,Credit Card,9359525.0
+360,Medan,Male,2024-02-20,3,714126.0,Garuda,Transfer Bank,2142378.0
+361,Medan,Female,2024-02-27,1,1700566.0,Citilink,E-Wallet,1700566.0
+362,Surabaya,Female,2024-01-09,5,562367.0,Lion Air,E-Wallet,2811835.0
+363,Medan,Female,2024-02-02,4,1890439.0,Citilink,Credit Card,7561756.0
+364,Surabaya,Female,2024-03-26,3,1955014.0,Citilink,E-Wallet,5865042.0
+365,Surabaya,Female,2024-03-05,1,576186.0,Garuda,Credit Card,576186.0
+366,Jakarta,Male,2024-01-08,3,1704277.0,Lion Air,Transfer Bank,5112831.0
+367,Medan,Female,2024-02-19,2,725102.0,Citilink,Transfer Bank,1450204.0
+368,Medan,Male,2024-02-17,1,1512435.0,Garuda,Credit Card,1512435.0
+369,Surabaya,Male,2024-03-03,3,1865885.0,Lion Air,E-Wallet,5597655.0
+370,Jakarta,Female,2024-03-29,2,1860919.0,Garuda,E-Wallet,3721838.0
+371,Medan,Male,2024-03-13,3,820145.0,Citilink,Credit Card,2460435.0
+372,Medan,Female,2024-03-21,3,660813.0,Citilink,Transfer Bank,1982439.0
+373,Medan,Female,2024-03-15,3,1479096.0,Lion Air,Transfer Bank,4437288.0
+374,Medan,Female,2024-03-23,5,1509378.0,Citilink,E-Wallet,7546890.0
+375,Medan,Female,2024-03-26,3,984660.0,Citilink,Credit Card,2953980.0
+376,Jakarta,Male,2024-01-09,5,1980178.0,Citilink,E-Wallet,9900890.0
+377,Medan,Female,2024-01-10,3,737972.0,Lion Air,E-Wallet,2213916.0
+378,Surabaya,Female,2024-03-29,5,787870.0,Citilink,Credit Card,3939350.0
+379,Jakarta,Male,2024-01-21,3,1168057.0,Citilink,Credit Card,3504171.0
+380,Medan,Female,2024-03-15,2,1378767.0,Garuda,Transfer Bank,2757534.0
+381,Surabaya,Female,2024-01-20,4,1770227.0,Garuda,E-Wallet,7080908.0
+382,Jakarta,Male,2024-01-12,4,1909254.0,Citilink,E-Wallet,7637016.0
+383,Medan,Male,2024-02-19,1,528000.0,Citilink,E-Wallet,528000.0
+384,Medan,Female,2024-03-19,3,1844389.0,Garuda,E-Wallet,5533167.0
+385,Surabaya,Male,2024-01-06,1,1004251.0,Lion Air,Credit Card,1004251.0
+386,Medan,Male,2024-01-17,2,667328.0,Garuda,Credit Card,1334656.0
+387,Jakarta,Male,2024-02-26,5,989100.0,Citilink,E-Wallet,4945500.0
+388,Medan,Female,2024-03-09,3,1842230.0,Lion Air,E-Wallet,5526690.0
+389,Jakarta,Female,2024-03-19,2,1000889.0,Lion Air,E-Wallet,2001778.0
+390,Surabaya,Female,2024-02-20,1,1004322.0,Garuda,E-Wallet,1004322.0
+391,Surabaya,Female,2024-03-07,3,1418973.0,Citilink,E-Wallet,4256919.0
+392,Jakarta,Female,2024-01-03,4,1507917.0,Lion Air,E-Wallet,6031668.0
+393,Jakarta,Male,2024-03-19,2,1285639.0,Garuda,E-Wallet,2571278.0
+394,Surabaya,Female,2024-02-17,3,1980482.0,Citilink,Credit Card,5941446.0
+395,Jakarta,Male,2024-03-12,2,1940440.0,Citilink,E-Wallet,3880880.0
+396,Medan,Female,2024-01-06,3,1704900.0,Lion Air,E-Wallet,5114700.0
+397,Surabaya,Male,2024-01-05,1,1658418.0,Citilink,Transfer Bank,1658418.0
+398,Surabaya,Female,2024-01-16,3,721995.0,Garuda,Credit Card,2165985.0
+399,Jakarta,Male,2024-02-22,4,636967.0,Citilink,Credit Card,2547868.0
+400,Jakarta,Female,2024-01-17,2,1954052.0,Garuda,E-Wallet,3908104.0
+401,Jakarta,Female,2024-02-08,1,617123.0,Lion Air,Transfer Bank,617123.0
+402,Jakarta,Female,2024-01-05,2,1708846.0,Garuda,Credit Card,3417692.0
+403,Surabaya,Female,2024-03-28,2,571330.0,Lion Air,E-Wallet,1142660.0
+404,Medan,Male,2024-03-31,1,767832.0,Citilink,E-Wallet,767832.0
+405,Surabaya,Male,2024-01-25,5,1127283.0,Garuda,Transfer Bank,5636415.0
+406,Surabaya,Male,2024-01-21,3,1955527.0,Garuda,E-Wallet,5866581.0
+407,Medan,Male,2024-01-08,3,1135269.0,Lion Air,Transfer Bank,3405807.0
+408,Jakarta,Male,2024-02-15,4,707087.0,Lion Air,E-Wallet,2828348.0
+409,Jakarta,Female,2024-02-03,3,761333.0,Lion Air,Credit Card,2283999.0
+410,Surabaya,Male,2024-03-19,4,1495013.0,Citilink,E-Wallet,5980052.0
+411,Jakarta,Male,2024-02-04,5,1961488.0,Garuda,E-Wallet,9807440.0
+412,Surabaya,Female,2024-01-26,3,593467.0,Lion Air,Credit Card,1780401.0
+413,Surabaya,Male,2024-02-04,3,1811398.0,Citilink,E-Wallet,5434194.0
+414,Jakarta,Female,2024-02-22,1,1289663.0,Citilink,Credit Card,1289663.0
+415,Jakarta,Female,2024-01-15,4,757557.0,Citilink,Transfer Bank,3030228.0
+416,Jakarta,Male,2024-03-07,4,1359132.0,Garuda,E-Wallet,5436528.0
+417,Jakarta,Female,2024-02-10,1,1549442.0,Citilink,Credit Card,1549442.0
+418,Jakarta,Male,2024-01-09,3,1417676.0,Citilink,Credit Card,4253028.0
+419,Medan,Male,2024-02-05,2,1888103.0,Garuda,Credit Card,3776206.0
+420,Jakarta,Female,2024-02-21,3,1463702.0,Garuda,Credit Card,4391106.0
+421,Medan,Female,2024-02-27,1,1130227.0,Lion Air,Transfer Bank,1130227.0
+422,Surabaya,Female,2024-03-30,3,941540.0,Lion Air,Credit Card,2824620.0
+423,Surabaya,Male,2024-01-10,3,1085913.0,Garuda,Transfer Bank,3257739.0
+424,Jakarta,Female,2024-01-30,1,887927.0,Garuda,Credit Card,887927.0
+425,Medan,Female,2024-02-27,5,1143172.0,Citilink,Transfer Bank,5715860.0
+426,Jakarta,Female,2024-03-21,5,1035792.0,Lion Air,Transfer Bank,5178960.0
+427,Jakarta,Female,2024-03-29,1,1229441.0,Citilink,Credit Card,1229441.0
+428,Surabaya,Male,2024-03-15,4,596582.0,Citilink,E-Wallet,2386328.0
+429,Surabaya,Female,2024-02-28,3,1842778.0,Lion Air,Credit Card,5528334.0
+430,Jakarta,Male,2024-01-31,3,1769206.0,Lion Air,Credit Card,5307618.0
+431,Medan,Male,2024-03-16,5,1358978.0,Citilink,Credit Card,6794890.0
+432,Surabaya,Female,2024-01-25,4,1866731.0,Garuda,Credit Card,7466924.0
+433,Surabaya,Female,2024-03-30,4,1039387.0,Lion Air,Credit Card,4157548.0
+434,Surabaya,Male,2024-02-08,5,1723985.0,Lion Air,E-Wallet,8619925.0
+435,Medan,Female,2024-02-25,5,776891.0,Garuda,E-Wallet,3884455.0
+436,Medan,Male,2024-03-17,3,1957086.0,Garuda,E-Wallet,5871258.0
+437,Medan,Male,2024-01-30,2,1081498.0,Citilink,Credit Card,2162996.0
+438,Surabaya,Male,2024-01-03,1,1383928.0,Garuda,Transfer Bank,1383928.0
+439,Surabaya,Male,2024-01-31,3,801357.0,Garuda,E-Wallet,2404071.0
+440,Surabaya,Female,2024-03-25,3,1380775.0,Citilink,E-Wallet,4142325.0
+441,Medan,Male,2024-02-15,3,830857.0,Citilink,Credit Card,2492571.0
+442,Medan,Male,2024-02-04,2,1793609.0,Lion Air,Credit Card,3587218.0
+443,Medan,Female,2024-01-13,1,1867200.0,Garuda,E-Wallet,1867200.0
+444,Surabaya,Female,2024-01-30,3,718928.0,Lion Air,Transfer Bank,2156784.0
+445,Surabaya,Female,2024-03-10,3,1279841.0,Garuda,Transfer Bank,3839523.0
+446,Surabaya,Male,2024-01-11,5,1597016.0,Garuda,Credit Card,7985080.0
+447,Jakarta,Female,2024-01-11,5,972544.0,Garuda,Transfer Bank,4862720.0
+448,Jakarta,Female,2024-03-08,3,1119900.0,Garuda,Credit Card,3359700.0
+449,Medan,Female,2024-01-22,3,665282.0,Garuda,Credit Card,1995846.0
+450,Medan,Female,2024-03-09,4,999306.0,Garuda,Credit Card,3997224.0
+451,Surabaya,Female,2024-01-31,5,1277089.0,Citilink,Credit Card,6385445.0
+452,Medan,Female,2024-01-31,4,1624172.0,Garuda,Credit Card,6496688.0
+453,Medan,Female,2024-03-27,1,749766.0,Lion Air,E-Wallet,749766.0
+454,Surabaya,Male,2024-01-03,2,1698456.0,Garuda,Credit Card,3396912.0
+455,Surabaya,Female,2024-02-04,4,829424.0,Lion Air,Transfer Bank,3317696.0
+456,Medan,Male,2024-03-25,1,1655524.0,Garuda,Transfer Bank,1655524.0
+457,Jakarta,Male,2024-02-29,4,761139.0,Garuda,E-Wallet,3044556.0
+458,Surabaya,Male,2024-03-25,1,1582268.0,Lion Air,E-Wallet,1582268.0
+459,Jakarta,Female,2024-01-10,4,1839766.0,Citilink,Transfer Bank,7359064.0
+460,Medan,Male,2024-03-16,2,767481.0,Citilink,Credit Card,1534962.0
+461,Medan,Male,2024-01-27,1,1512063.0,Garuda,Credit Card,1512063.0
+462,Surabaya,Male,2024-01-12,3,1294724.0,Citilink,E-Wallet,3884172.0
+463,Jakarta,Female,2024-03-27,4,1094810.0,Citilink,Credit Card,4379240.0
+464,Medan,Female,2024-03-26,3,1557914.0,Citilink,E-Wallet,4673742.0
+465,Jakarta,Male,2024-03-27,1,1547054.0,Garuda,Transfer Bank,1547054.0
+466,Medan,Female,2024-03-27,5,1007000.0,Garuda,Transfer Bank,5035000.0
+467,Medan,Female,2024-01-15,1,1052680.0,Garuda,E-Wallet,1052680.0
+468,Jakarta,Male,2024-01-26,5,1654384.0,Lion Air,Transfer Bank,8271920.0
+469,Medan,Male,2024-01-28,2,1686259.0,Lion Air,Transfer Bank,3372518.0
+470,Jakarta,Male,2024-01-13,2,1989752.0,Garuda,Credit Card,3979504.0
+471,Jakarta,Male,2024-02-13,3,1909574.0,Citilink,E-Wallet,5728722.0
+472,Surabaya,Female,2024-02-07,4,1899993.0,Lion Air,E-Wallet,7599972.0
+473,Medan,Female,2024-01-04,3,1899175.0,Citilink,Credit Card,5697525.0
+474,Surabaya,Female,2024-03-18,3,1747891.0,Citilink,Transfer Bank,5243673.0
+475,Jakarta,Female,2024-02-16,1,1498317.0,Garuda,E-Wallet,1498317.0
+476,Medan,Male,2024-01-08,5,697211.0,Garuda,Transfer Bank,3486055.0
+477,Medan,Male,2024-03-06,1,935674.0,Lion Air,Transfer Bank,935674.0
+478,Jakarta,Female,2024-01-08,3,1889878.0,Lion Air,E-Wallet,5669634.0
+479,Jakarta,Male,2024-03-29,2,1958209.0,Citilink,Transfer Bank,3916418.0
+480,Medan,Male,2024-03-31,1,1612737.0,Garuda,E-Wallet,1612737.0
+481,Jakarta,Female,2024-03-15,1,592248.0,Garuda,Credit Card,592248.0
+482,Surabaya,Female,2024-02-28,4,1781589.0,Garuda,E-Wallet,7126356.0
+483,Medan,Female,2024-02-28,5,758799.0,Garuda,E-Wallet,3793995.0
+484,Jakarta,Female,2024-01-17,4,1613323.0,Citilink,Credit Card,6453292.0
+485,Surabaya,Male,2024-01-30,4,979564.0,Lion Air,Transfer Bank,3918256.0
+486,Surabaya,Female,2024-02-20,1,748070.0,Lion Air,Credit Card,748070.0
+487,Jakarta,Female,2024-02-26,4,745609.0,Lion Air,E-Wallet,2982436.0
+488,Jakarta,Male,2024-01-10,1,687857.0,Lion Air,Credit Card,687857.0
+489,Surabaya,Female,2024-02-03,3,1997273.0,Citilink,E-Wallet,5991819.0
+490,Medan,Male,2024-01-15,4,1276533.0,Citilink,Credit Card,5106132.0
+491,Jakarta,Female,2024-03-26,2,1118636.0,Lion Air,E-Wallet,2237272.0
+492,Medan,Female,2024-01-25,4,811142.0,Citilink,E-Wallet,3244568.0
+493,Jakarta,Male,2024-01-14,1,1125190.0,Lion Air,Credit Card,1125190.0
+494,Jakarta,Female,2024-01-25,1,1803779.0,Lion Air,Transfer Bank,1803779.0
+495,Jakarta,Female,2024-02-22,1,738270.0,Garuda,Transfer Bank,738270.0
+496,Jakarta,Male,2024-01-17,1,1255557.0,Garuda,E-Wallet,1255557.0
+497,Surabaya,Female,2024-03-06,3,1303938.0,Citilink,E-Wallet,3911814.0
+498,Medan,Female,2024-03-25,3,1773797.0,Garuda,Credit Card,5321391.0
+499,Medan,Male,2024-02-17,3,883629.0,Garuda,Transfer Bank,2650887.0
+500,Medan,Male,2024-01-02,3,907876.0,Citilink,E-Wallet,2723628.0
