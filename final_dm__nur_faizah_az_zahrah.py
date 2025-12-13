@@ -127,6 +127,13 @@ Output dari proses ini adalah dua kolom baru, yaitu PCA1 dan PCA2, yang masing-m
 """
 
 
+# FEATURE ENGINEERING DARI DATE
+if "Date" in df.columns:
+    df["Month"] = df["Date"].dt.month
+    df["Day"] = df["Date"].dt.day
+    df["DayOfWeek"] = df["Date"].dt.dayofweek
+
+
 # 6. ENSEMBLE REGRESSION (RIDGE + LASSO + ELASTICNET)
 target_column = "Ticket_Price"
 ensemble_results = []
@@ -173,9 +180,6 @@ for cluster in sorted(df["Cluster"].unique()):
         "R2_Score": r2_score(y_test, y_pred)
     })
 
-data=ensemble_regression_df.to_csv(index=False)
-st.subheader("Hasil Ensemble Regresi per Cluster")
-st.dataframe(ensemble_regression_df)
 
 
 
@@ -187,17 +191,11 @@ Output menunjukkan hasil evaluasi ensemble regression pada setiap cluster yang t
 
 
 
-# FEATURE ENGINEERING DARI DATE
-if "Date" in df.columns:
-    df["Month"] = df["Date"].dt.month
-    df["Day"] = df["Date"].dt.day
-    df["DayOfWeek"] = df["Date"].dt.dayofweek
-
-
 
 # 7. VISUALISASI OUTPUT
 # Distribusi data per cluster
 st.subheader("Visualisasi Distribusi Data per Cluster")
+
 fig, ax = plt.subplots(figsize=(6,4))
 sns.countplot(x="Cluster", data=df, palette="Set2", ax=ax)
 ax.set_title("Distribusi Data per Cluster")
@@ -205,20 +203,25 @@ ax.set_xlabel("Cluster")
 ax.set_ylabel("Jumlah Data")
 st.pyplot(fig)
 
+# =====================
+# DOWNLOAD OUTPUT
+# =====================
 st.subheader("Download Output")
 
 st.download_button(
-        "Download Hasil Clustering + Regresi",
-        data=df.to_csv(index=False),
-        file_name="hasil_clustering_ensemble_regresi.csv",
-        mime="text/csv"
-    )
+    "Download Hasil Clustering + Regresi",
+    data=df.to_csv(index=False),
+    file_name="hasil_clustering_ensemble_regresi.csv",
+    mime="text/csv"
+)
+
 st.download_button(
-        "Download Hasil Regresi",
-        data=regression_df.to_csv(index=False),
-        file_name="hasil_ensemble_regresi.csv",
-        mime="text/csv"
-    )
+    "Download Hasil Regresi",
+    data=ensemble_regression_df.to_csv(index=False),
+    file_name="hasil_ensemble_regresi.csv",
+    mime="text/csv"
+)
+
 
 
 
