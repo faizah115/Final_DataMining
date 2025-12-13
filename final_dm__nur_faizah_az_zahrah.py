@@ -16,6 +16,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.decomposition import PCA
@@ -125,57 +126,64 @@ st.pyplot(fig1)
 Output dari proses ini adalah dua kolom baru, yaitu PCA1 dan PCA2, yang masing-masing merepresentasikan komponen utama pertama dan kedua dari hasil reduksi dimensi. Kedua kolom ini tidak mengubah jumlah baris data, melainkan hanya menambahkan informasi baru untuk keperluan visualisasi. Dengan adanya PCA1 dan PCA2, hasil clustering dapat divisualisasikan dalam bentuk scatter plot dua dimensi sehingga pemisahan antar cluster dapat diamati secara lebih jelas dan intuitif.
 """
 
+# FEATURE ENGINEERING DARI DATE
+if "Date" in df.columns:
+    df["Month"] = df["Date"].dt.month
+    df["Day"] = df["Date"].dt.day
+    df["DayOfWeek"] = df["Date"].dt.dayofweek
+
 
 
 # 6. ENSEMBLE REGRESSION (RIDGE + LASSO + ELASTICNET)
-st.subheader("Ensemble Regression")
-
-numeric_columns = df.select_dtypes(include=[np.number]).columns.tolist()
-target_column = st.selectbox(
-        "Pilih kolom target regresi",
-        numeric_columns
-    )
-
+target_column = "Ticket_Price"
 ensemble_results = []
 
 for cluster in sorted(df["Cluster"].unique()):
-        data_cluster = df[df["Cluster"] == cluster]
+    data_cluster = df[df["Cluster"] == cluster]
 
-        if len(data_cluster) < 5:
-            continue
+    if len(data_cluster) < 10:
+        continue
 
-        X = data_cluster.drop(
-            columns=[target_column, "Cluster", "PCA1", "PCA2"],
-            errors="ignore"
-        )
-        y = data_cluster[target_column]
+    X = data_cluster.drop(
+        columns=[target_column, "Cluster", "PCA1", "PCA2"],
+        errors="ignore"
+    )
+    y = data_cluster[target_column]
 
-        X = X.select_dtypes(include=[np.number])
+    X = X.select_dtypes(include=[np.number])
 
-        ridge = Ridge(alpha=1.0)
-        lasso = Lasso(alpha=0.01)
-        elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
+    # Train-test split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
 
-        ridge.fit(X, y)
-        lasso.fit(X, y)
-        elastic.fit(X, y)
+    # Model regresi ensemble
+    ridge = Ridge(alpha=1.0)
+    lasso = Lasso(alpha=0.01)
+    elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
 
-        y_pred = (
-            ridge.predict(X) +
-            lasso.predict(X) +
-            elastic.predict(X)
-        ) / 3
+    ridge.fit(X_train, y_train)
+    lasso.fit(X_train, y_train)
+    elastic.fit(X_train, y_train)
 
-        ensemble_results.append({
-            "Cluster": cluster,
-            "Jumlah_Data": len(data_cluster),
-            "MSE": mean_squared_error(y, y_pred),
-            "R2_Score": r2_score(y, y_pred)
-        })
+    # Ensemble prediction (rata-rata)
+    y_pred = (
+        ridge.predict(X_test) +
+        lasso.predict(X_test) +
+        elastic.predict(X_test)
+    ) / 3
 
-regression_df = pd.DataFrame(ensemble_results)
+    ensemble_results.append({
+        "Cluster": cluster,
+        "Jumlah_Data": len(data_cluster),
+        "MSE": mean_squared_error(y_test, y_pred),
+        "R2_Score": r2_score(y_test, y_pred)
+    })
+
+data=ensemble_regression_df.to_csv(index=False)
 st.subheader("Hasil Ensemble Regresi per Cluster")
-st.dataframe(regression_df)
+st.dataframe(ensemble_regression_df)
+
 
 
 """Kode ini digunakan untuk melakukan ensemble regression pada setiap cluster hasil clustering, dengan tujuan memprediksi nilai Ticket_Price secara lebih stabil dan akurat. Proses dimulai dengan memisahkan data berdasarkan label cluster, kemudian untuk setiap cluster dilakukan pemodelan regresi menggunakan tiga algoritma regresi berbeda, yaitu Ridge, Lasso, dan ElasticNet, tanpa menggunakan Linear Regression. Fitur numerik dipilih sebagai variabel input, sementara Ticket_Price dijadikan sebagai variabel target. Prediksi akhir diperoleh dengan cara merata-ratakan hasil prediksi dari ketiga model regresi (ensemble averaging), sehingga dapat mengurangi bias dari satu model tunggal. Kinerja model kemudian dievaluasi menggunakan Mean Squared Error (MSE) dan R² Score.
@@ -188,6 +196,14 @@ Output menunjukkan hasil evaluasi ensemble regression pada setiap cluster yang t
 
 # 7. VISUALISASI OUTPUT
 # Distribusi data per cluster
+st.subheader("Visualisasi Distribusi Data per Cluster")
+fig, ax = plt.subplots(figsize=(6,4))
+sns.countplot(x="Cluster", data=df, palette="Set2", ax=ax)
+ax.set_title("Distribusi Data per Cluster")
+ax.set_xlabel("Cluster")
+ax.set_ylabel("Jumlah Data")
+st.pyplot(fig)
+
 st.subheader("Download Output")
 
 st.download_button(
@@ -202,6 +218,7 @@ st.download_button(
         file_name="hasil_ensemble_regresi.csv",
         mime="text/csv"
     )
+
 
 
 """Kode ini digunakan untuk memvisualisasikan hasil clustering agar pola dan distribusi data dapat dipahami secara intuitif. Visualisasi pertama menggunakan countplot untuk menampilkan jumlah data pada setiap cluster, sehingga dapat diketahui apakah pembagian cluster seimbang atau tidak. Visualisasi kedua menggunakan scatter plot berbasis PCA1 dan PCA2, yang merupakan hasil reduksi dimensi dari PCA, untuk menampilkan sebaran data dua dimensi dengan warna berbeda sesuai cluster hasil Agglomerative Clustering.
