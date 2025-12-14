@@ -1,13 +1,6 @@
-# =====================================================
-# FINAL DATA MINING
-# Nama  : Nur Faizah Az Zahrah
-# Judul : Analisis Segmentasi Penjualan Tiket Pesawat
-# Metode: Agglomerative Clustering & Ensemble Regression
-# =====================================================
-
-# ========================
+# =========================================
 # IMPORT LIBRARY
-# ========================
+# =========================================
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -22,62 +15,47 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Ridge, Lasso, ElasticNet
 from sklearn.metrics import mean_squared_error, r2_score
 
-# ========================
-# KONFIGURASI STREAMLIT
-# ========================
+# =========================================
+# CONFIG STREAMLIT
+# =========================================
 st.set_page_config(page_title="UAS Data Mining", layout="wide")
-st.title("Segmentasi Penjualan Tiket Pesawat")
-st.write("Agglomerative Clustering & Ensemble Regression")
+st.title("Clustering & Ensemble Regression")
+st.write("Agglomerative Clustering + Ensemble Regression")
 
-# ========================
-# UPLOAD DATA
-# ========================
-uploaded_file = st.file_uploader(
-    "Upload Dataset CSV Penjualan Tiket Pesawat",
-    type=["csv"]
-)
+# =========================================
+# LOAD DATA
+# =========================================
+uploaded_file = st.file_uploader("Upload Dataset CSV", type=["csv"])
 
 if uploaded_file is None:
-    st.info("Silakan upload file CSV untuk memulai analisis.")
+    st.info("Silakan upload dataset CSV")
     st.stop()
 
 df = pd.read_csv(uploaded_file)
-
 st.subheader("Data Awal")
 st.dataframe(df.head())
 
-# ========================
+# =========================================
 # 1. DATA CLEANING
-# ========================
-st.subheader("Data Cleaning")
+# =========================================
+st.subheader("🧹 Data Cleaning")
 
 st.write("Ukuran data awal:", df.shape)
 st.write("Missing value per kolom:")
 st.write(df.isnull().sum())
 
-jumlah_duplikat = df.duplicated().sum()
-st.write("Jumlah data duplikat sebelum cleaning:", jumlah_duplikat)
-
+st.write("Jumlah duplikat:", df.duplicated().sum())
 df = df.drop_duplicates()
-st.write("Jumlah data duplikat setelah cleaning:", df.duplicated().sum())
 
-# Konversi Date ke datetime
 if "Date" in df.columns:
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
 st.write("Ukuran data setelah cleaning:", df.shape)
 
-# Contoh hasil konversi Date
-if "Date" in df.columns:
-    st.subheader("Contoh Kolom Date setelah Konversi")
-    tampil_date = df[["Date"]].copy()
-    tampil_date["Date"] = tampil_date["Date"].dt.strftime("%Y-%m-%d %H:%M:%S")
-    st.dataframe(tampil_date.head())
-
-# ========================
+# =========================================
 # 2. ENCODING DATA KATEGORIK
-# ========================
-st.subheader("Encoding Data Kategorik")
+# =========================================
+st.subheader("🔤 Encoding Data Kategorik")
 
 df_encoded = df.copy()
 encoder = LabelEncoder()
@@ -85,7 +63,6 @@ encoder = LabelEncoder()
 for col in df_encoded.select_dtypes(include="object").columns:
     df_encoded[col] = encoder.fit_transform(df_encoded[col])
 
-st.write("Contoh 5 baris data setelah encoding:")
 st.dataframe(df_encoded.head())
 
 st.download_button(
@@ -95,10 +72,10 @@ st.download_button(
     mime="text/csv"
 )
 
-# ========================
+# =========================================
 # 3. SCALING DATA
-# ========================
-st.subheader("Scaling Data")
+# =========================================
+st.subheader("⚖️ Scaling Data")
 
 datetime_cols = df_encoded.select_dtypes(include=["datetime64[ns]"]).columns
 df_numeric = df_encoded.drop(columns=datetime_cols)
@@ -106,31 +83,38 @@ df_numeric = df_encoded.drop(columns=datetime_cols)
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(df_numeric)
 
-st.write("Scaling menggunakan StandardScaler berhasil.")
+# =========================================
+# 4. FEATURE ENGINEERING (UNTUK CLUSTERING)
+# =========================================
+st.subheader("🧩 Feature Engineering (Clustering)")
 
-# ========================
-# 4. CLUSTERING (AGGLOMERATIVE)
-# ========================
-st.subheader("Clustering (Agglomerative Clustering)")
+cluster_features = df_numeric.copy()
+st.write("Fitur yang digunakan untuk clustering:")
+st.write(cluster_features.columns.tolist())
+
+# =========================================
+# 5. CLUSTERING (AGGLOMERATIVE)
+# =========================================
+st.subheader("🔹 Agglomerative Clustering")
 
 n_cluster = st.slider("Pilih jumlah cluster", 2, 5, 3)
 
 cluster_model = AgglomerativeClustering(n_clusters=n_cluster)
 df["Cluster"] = cluster_model.fit_predict(X_scaled)
 
-st.write("Distribusi Data per Cluster:")
+st.write("Distribusi Cluster:")
 st.write(df["Cluster"].value_counts())
 
-# ========================
-# 5. PCA UNTUK VISUALISASI CLUSTER
-# ========================
-st.subheader("Visualisasi Clustering dengan PCA")
-
+# =========================================
+# PCA UNTUK VISUALISASI CLUSTERING
+# =========================================
 pca = PCA(n_components=2)
 X_pca = pca.fit_transform(X_scaled)
 
 df["PCA1"] = X_pca[:, 0]
 df["PCA2"] = X_pca[:, 1]
+
+st.subheader("Visualisasi PCA Clustering")
 
 fig_pca, ax_pca = plt.subplots()
 sns.scatterplot(
@@ -141,7 +125,7 @@ sns.scatterplot(
     palette="Set2",
     ax=ax_pca
 )
-ax_pca.set_title("Visualisasi Cluster (PCA)")
+ax_pca.set_title("PCA Agglomerative Clustering")
 st.pyplot(fig_pca)
 
 # Download visualisasi PCA
@@ -150,46 +134,42 @@ fig_pca.savefig(buf, format="png", bbox_inches="tight")
 buf.seek(0)
 
 st.download_button(
-    "Download Visualisasi PCA",
+    "Download Visualisasi PCA Clustering",
     data=buf,
-    file_name="visualisasi_cluster_pca.png",
+    file_name="pca_clustering.png",
     mime="image/png"
 )
 
-# ========================
-# 6. FEATURE ENGINEERING DARI DATE
-# ========================
-if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
-    st.subheader("Feature Engineering Berbasis Waktu")
+# =========================================
+# BOXPLOT CLUSTERING
+# =========================================
+st.subheader("📦 Boxplot Clustering")
 
+fig_box_c, ax_box_c = plt.subplots()
+sns.boxplot(
+    x="Cluster",
+    y="Ticket_Quantity",
+    data=df,
+    palette="Set2",
+    ax=ax_box_c
+)
+ax_box_c.set_title("Boxplot Ticket Quantity per Cluster")
+st.pyplot(fig_box_c)
+
+# =========================================
+# 6. FEATURE ENGINEERING (UNTUK REGRESI)
+# =========================================
+st.subheader("🧩 Feature Engineering (Regresi)")
+
+if "Date" in df.columns:
     df["Month"] = df["Date"].dt.month
     df["Day"] = df["Date"].dt.day
     df["DayOfWeek"] = df["Date"].dt.dayofweek
 
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        fig, ax = plt.subplots()
-        sns.countplot(x="Month", data=df, ax=ax)
-        ax.set_title("Distribusi Transaksi per Bulan")
-        st.pyplot(fig)
-
-    with col2:
-        fig, ax = plt.subplots()
-        sns.countplot(x="Day", data=df, ax=ax)
-        ax.set_title("Distribusi Transaksi per Hari")
-        st.pyplot(fig)
-
-    with col3:
-        fig, ax = plt.subplots()
-        sns.countplot(x="DayOfWeek", data=df, ax=ax)
-        ax.set_title("Distribusi Transaksi per Hari (0=Senin)")
-        st.pyplot(fig)
-
-# ========================
-# 7. ENSEMBLE REGRESSION
-# ========================
-st.subheader("Ensemble Regression per Cluster")
+# =========================================
+# 7. REGRESI + ENSEMBLE
+# =========================================
+st.subheader("📈 Ensemble Regression")
 
 target_column = "Ticket_Quantity"
 ensemble_results = []
@@ -233,17 +213,45 @@ for cluster in sorted(df["Cluster"].unique()):
         "R2_Score": r2_score(y_test, y_pred)
     })
 
+    # BOXPLOT REGRESI
+    df_compare = pd.DataFrame({
+        "Actual": y_test.values,
+        "Predicted": y_pred
+    })
+
+    df_melt = df_compare.melt(
+        var_name="Type",
+        value_name=target_column
+    )
+
+    st.subheader(f"Boxplot Regresi Ensemble - Cluster {cluster}")
+
+    fig_box_r, ax_box_r = plt.subplots()
+    sns.boxplot(
+        x="Type",
+        y=target_column,
+        data=df_melt,
+        palette="Set3",
+        ax=ax_box_r
+    )
+    ax_box_r.set_title(f"Actual vs Predicted (Cluster {cluster})")
+    st.pyplot(fig_box_r)
+
+# =========================================
+# HASIL REGRESI
+# =========================================
+st.subheader("📊 Hasil Ensemble Regression per Cluster")
 ensemble_df = pd.DataFrame(ensemble_results)
 st.dataframe(ensemble_df)
 
-# ========================
-# 8. DOWNLOAD OUTPUT AKHIR
-# ========================
-st.subheader("Download Output Akhir")
+# =========================================
+# DOWNLOAD OUTPUT AKHIR
+# =========================================
+st.subheader("⬇️ Download Output Akhir")
 
 st.download_button(
-    "Download Data Final (Clustering + PCA)",
+    "Download Dataset Final",
     data=df.to_csv(index=False),
-    file_name="hasil_clustering_final.csv",
+    file_name="hasil_clustering_regresi.csv",
     mime="text/csv"
 )
