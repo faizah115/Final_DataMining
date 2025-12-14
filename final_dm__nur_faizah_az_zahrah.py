@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import io
 
-from sklearn.metrics import silhouette_samples
+
+from sklearn.metrics import silhouette_samples, silhouette_score
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.decomposition import PCA
