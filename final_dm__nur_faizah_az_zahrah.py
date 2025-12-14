@@ -43,9 +43,44 @@ else:
 # ===============================
 # DATA CLEANING
 # ===============================
+# ===============================
+# DATA CLEANING
+# ===============================
+st.header("🧹 Data Cleaning")
+
+# Ukuran data awal
+st.write("Ukuran data awal (baris, kolom):", df.shape)
+
+# -------------------------------
+# Missing Value
+# -------------------------------
+st.subheader("Missing Value per Kolom")
+missing_df = df.isnull().sum().reset_index()
+missing_df.columns = ["Kolom", "Jumlah Missing"]
+st.dataframe(missing_df)
+
+# -------------------------------
+# Data Duplikat
+# -------------------------------
+jumlah_duplikat = df.duplicated().sum()
+st.write("Jumlah data duplikat sebelum dihapus:", jumlah_duplikat)
+
+# Hapus duplikat
 df = df.drop_duplicates()
+
+st.write("Jumlah data duplikat setelah dihapus:", df.duplicated().sum())
+
+# -------------------------------
+# Konversi Date
+# -------------------------------
 if "Date" in df.columns:
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+    st.subheader("Contoh Kolom Date Setelah Konversi")
+    st.dataframe(df[["Date"]].head())
+
+# Ukuran data akhir
+st.write("Ukuran data setelah cleaning:", df.shape)
+
 
 # ===============================
 # ENCODING
@@ -62,12 +97,16 @@ df_encoded["Month"] = df_encoded["Date"].dt.month
 df_encoded["Day"] = df_encoded["Date"].dt.day
 df_encoded["DayOfWeek"] = df_encoded["Date"].dt.dayofweek
 
-# ===============================
-# SCALING
-# ===============================
-numeric_cols = df_encoded.select_dtypes(include=[np.number]).columns
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(df_encoded[numeric_cols])
+fitur_clustering = [
+    "Ticket_Quantity",
+    "Total_Price",
+    "Month",
+    "DayOfWeek"
+]
+
+X = df_encoded[fitur_clustering]
+X_scaled = StandardScaler().fit_transform(X)
+
 
 # =====================================================
 # ANALISIS 1: CLUSTERING SAJA (AGGLOMERATIVE)
@@ -168,17 +207,6 @@ for c in sorted(df_encoded["Cluster"].unique()):
     })
 
 st.subheader("Hasil Ensemble Regresi")
-
-regression_result = pd.DataFrame([
-    {
-        "MSE": mean_squared_error(y_test, y_pred),
-        "R2_Score": r2_score(y_test, y_pred),
-        "Jumlah_Data": len(df_encoded)
-    }
-])
-
-st.dataframe(regression_result)
-
 
 # OUTPUT REGRESI
 result_df = pd.DataFrame(results)
