@@ -104,6 +104,10 @@ fitur_clustering = [
     "DayOfWeek"
 ]
 
+fitur_clustering = [c for c in fitur_clustering if c in df_encoded.columns]
+
+st.write("Fitur clustering yang digunakan:", fitur_clustering)
+
 X = df_encoded[fitur_clustering]
 X_scaled = StandardScaler().fit_transform(X)
 
