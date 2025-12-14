@@ -71,9 +71,21 @@ df = df.drop_duplicates()
 st.write("Jumlah data duplikat setelah cleaning:", df.duplicated().sum())
 
 # Konversi kolom Date
+# Konversi kolom Date ke datetime
 if "Date" in df.columns:
-    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
     st.write("Kolom Date berhasil dikonversi ke format datetime.")
+
+    # Simpan contoh sebelum & sesudah (untuk ditampilkan)
+    contoh_date = df[["Date"]].copy()
+
+    # Tampilkan tipe data kolom Date
+    st.write("Tipe data kolom Date setelah konversi:")
+    st.write(contoh_date.dtypes)
+
+    # Tampilkan contoh 5 data Date setelah konversi
+    st.write("Contoh data kolom Date setelah konversi ke datetime:")
+    st.dataframe(contoh_date.head())
+
 
 # Ukuran data setelah cleaning
 st.write("Ukuran data setelah cleaning:", df.shape)
