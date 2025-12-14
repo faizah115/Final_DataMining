@@ -73,7 +73,13 @@ st.write("Jumlah data duplikat setelah cleaning:", df.duplicated().sum())
 # Konversi kolom Date
 # Konversi kolom Date ke datetime
 if "Date" in df.columns:
+    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+
     st.write("Kolom Date berhasil dikonversi ke format datetime.")
+    st.write("Tipe data kolom Date:", df["Date"].dtype)
+
+    st.write("Contoh data kolom Date setelah konversi:")
+    st.dataframe(df[["Date"]].head())
 
     # Simpan contoh sebelum & sesudah (untuk ditampilkan)
     contoh_date = df[["Date"]].copy()
@@ -160,7 +166,7 @@ Output dari proses ini adalah dua kolom baru, yaitu PCA1 dan PCA2, yang masing-m
 
 
 # FEATURE ENGINEERING DARI DATE
-if "Date" in df.columns:
+if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
     df["Month"] = df["Date"].dt.month
     df["Day"] = df["Date"].dt.day
     df["DayOfWeek"] = df["Date"].dt.dayofweek
