@@ -85,18 +85,6 @@ df_date_tampil["Date"] = df_date_tampil["Date"].dt.strftime("%Y-%m-%d %H:%M:%S")
 st.dataframe(df_date_tampil.head())
 
 
-    # Simpan contoh sebelum & sesudah (untuk ditampilkan)
-contoh_date = df[["Date"]].copy()
-
-    # Tampilkan tipe data kolom Date
-st.write("Tipe data kolom Date setelah konversi:")
-st.write(contoh_date.dtypes)
-
-    # Tampilkan contoh 5 data Date setelah konversi
-st.write("Contoh data kolom Date setelah konversi ke datetime:")
-st.dataframe(contoh_date.head())
-
-
 # Ukuran data setelah cleaning
 st.write("Ukuran data setelah cleaning:", df.shape)
 
