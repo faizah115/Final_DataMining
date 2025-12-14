@@ -187,20 +187,30 @@ st.dataframe(overall_eval_df)
 # =====================================================
 # ANALISIS 2: REGRESI + ENSEMBLE
 # =====================================================
+
+
+
 st.header("🟢 Analisis Regresi + Ensemble")
 
 target_column = "Ticket_Quantity"
 results = []
-for c in sorted(df_encoded["Cluster"].unique()):
-    data_c = df_encoded[df_encoded["Cluster"] == c]
+st.header("🟢 Hasil Ensemble Regresi (Keseluruhan Data)")
 
-    X = data_c.drop(columns=[target_column, "Cluster", "PCA1", "PCA2"], errors="ignore")
-    y = data_c[target_column]
+if df_encoded.shape[0] > 10:
 
-    X = X.select_dtypes(include=[np.number])
+    Xg = df_encoded.drop(
+        columns=["Ticket_Quantity", "Cluster", "PCA1", "PCA2"],
+        errors="ignore"
+    )
+    yg = df_encoded["Ticket_Quantity"]
+
+    Xg = Xg.select_dtypes(include=[np.number])
+
+    st.write("Jumlah fitur regresi global:", Xg.shape[1])
+    st.write("Jumlah data regresi global:", Xg.shape[0])
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
+        Xg, yg, test_size=0.2, random_state=42
     )
 
     ridge = Ridge(alpha=1.0)
@@ -217,14 +227,16 @@ for c in sorted(df_encoded["Cluster"].unique()):
         + elastic.predict(X_test)
     ) / 3
 
-    results.append({
-        "Cluster": c,
-        "Jumlah_Data": len(data_c),
+    global_df = pd.DataFrame([{
         "MSE": mean_squared_error(y_test, y_pred),
-        "R2_Score": r2_score(y_test, y_pred)
-    })
+        "R2_Score": r2_score(y_test, y_pred),
+        "Jumlah_Data": len(df_encoded)
+    }])
 
-st.subheader("Hasil Ensemble Regresi")
+    st.dataframe(global_df)
+
+else:
+    st.warning("Data terlalu sedikit untuk regresi global")
 
 # OUTPUT REGRESI
 result_df = pd.DataFrame(results)
