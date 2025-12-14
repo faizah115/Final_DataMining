@@ -187,14 +187,14 @@ st.dataframe(overall_eval_df)
 # =====================================================
 # ANALISIS 2: REGRESI + ENSEMBLE
 # =====================================================
-
-
-
 st.header("🟢 Analisis Regresi + Ensemble")
 
 target_column = "Ticket_Quantity"
-results = []
-st.header("🟢 Hasil Ensemble Regresi (Keseluruhan Data)")
+
+# =====================================================
+# A. REGRESI GLOBAL (KESELURUHAN DATA)
+# =====================================================
+st.subheader("🟢 Hasil Ensemble Regresi (Keseluruhan Data)")
 
 if df_encoded.shape[0] > 10:
 
@@ -238,10 +238,67 @@ if df_encoded.shape[0] > 10:
 else:
     st.warning("Data terlalu sedikit untuk regresi global")
 
-# OUTPUT REGRESI
-result_df = pd.DataFrame(results)
-st.subheader("Hasil Evaluasi Regresi Ensemble")
-st.dataframe(result_df)
+
+# =====================================================
+# B. REGRESI ENSEMBLE PER CLUSTER
+# =====================================================
+st.subheader("🟢 Hasil Evaluasi Regresi Ensemble per Cluster")
+
+results = []
+
+for c in sorted(df_encoded["Cluster"].unique()):
+    data_c = df_encoded[df_encoded["Cluster"] == c]
+
+    st.write(f"Cluster {c} | Jumlah data:", len(data_c))
+
+    if len(data_c) < 10:
+        st.warning(f"Cluster {c} dilewati (data terlalu sedikit)")
+        continue
+
+    X = data_c.drop(
+        columns=["Ticket_Quantity", "Cluster", "PCA1", "PCA2"],
+        errors="ignore"
+    )
+    y = data_c["Ticket_Quantity"]
+
+    X = X.select_dtypes(include=[np.number])
+
+    if X.shape[1] == 0:
+        st.warning(f"Cluster {c} dilewati (fitur kosong)")
+        continue
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    ridge = Ridge(alpha=1.0)
+    lasso = Lasso(alpha=0.01)
+    elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
+
+    ridge.fit(X_train, y_train)
+    lasso.fit(X_train, y_train)
+    elastic.fit(X_train, y_train)
+
+    y_pred = (
+        ridge.predict(X_test)
+        + lasso.predict(X_test)
+        + elastic.predict(X_test)
+    ) / 3
+
+    results.append({
+        "Cluster": c,
+        "Jumlah_Data": len(data_c),
+        "MSE": mean_squared_error(y_test, y_pred),
+        "R2_Score": r2_score(y_test, y_pred)
+    })
+
+# TAMPILKAN HASIL PER CLUSTER
+if len(results) > 0:
+    result_df = pd.DataFrame(results)
+    st.dataframe(result_df)
+else:
+    st.error("Tidak ada hasil regresi per cluster yang berhasil dihitung")
+
 
 # PCA REGRESI (VISUALISASI SAJA)
 fig_r, ax_r = plt.subplots()
