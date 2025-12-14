@@ -191,34 +191,18 @@ st.header("🟢 Analisis Regresi + Ensemble")
 
 target_column = "Ticket_Quantity"
 results = []
-
 for c in sorted(df_encoded["Cluster"].unique()):
     data_c = df_encoded[df_encoded["Cluster"] == c]
 
-    # ⛔ Lewati cluster jika data terlalu sedikit
-    if len(data_c) < 10:
-        st.warning(f"Cluster {c} dilewati (data terlalu sedikit)")
-        continue
-
-    X = data_c.drop(
-        columns=[target_column, "Cluster", "PCA1", "PCA2"],
-        errors="ignore"
-    )
+    X = data_c.drop(columns=[target_column, "Cluster", "PCA1", "PCA2"], errors="ignore")
     y = data_c[target_column]
 
-    # Ambil fitur numerik saja
     X = X.select_dtypes(include=[np.number])
-
-    # ⛔ Lewati jika fitur kosong
-    if X.shape[1] == 0:
-        st.warning(f"Cluster {c} dilewati (fitur numerik kosong)")
-        continue
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
 
-    # Model Ensemble
     ridge = Ridge(alpha=1.0)
     lasso = Lasso(alpha=0.01)
     elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
@@ -227,7 +211,6 @@ for c in sorted(df_encoded["Cluster"].unique()):
     lasso.fit(X_train, y_train)
     elastic.fit(X_train, y_train)
 
-    # Prediksi Ensemble (rata-rata)
     y_pred = (
         ridge.predict(X_test)
         + lasso.predict(X_test)
@@ -241,14 +224,33 @@ for c in sorted(df_encoded["Cluster"].unique()):
         "R2_Score": r2_score(y_test, y_pred)
     })
 
-# ===============================
-# OUTPUT HASIL REGRESI
-# ===============================
 st.subheader("Hasil Ensemble Regresi")
 
-if len(results) == 0:
-    st.warning("Tidak ada hasil regresi yang valid untuk ditampilkan.")
-else:
-    result_df = pd.DataFrame(results)
-    st.dataframe(result_df)
+# OUTPUT REGRESI
+result_df = pd.DataFrame(results)
+st.subheader("Hasil Evaluasi Regresi Ensemble")
+st.dataframe(result_df)
+
+# PCA REGRESI (VISUALISASI SAJA)
+fig_r, ax_r = plt.subplots()
+sns.scatterplot(
+    data=df_encoded,
+    x="PCA1",
+    y="PCA2",
+    hue="Cluster",
+    palette="Set1",
+    ax=ax_r
+)
+ax_r.set_title("PCA untuk Analisis Regresi Ensemble")
+st.pyplot(fig_r)
+
+buf_r = io.BytesIO()
+fig_r.savefig(buf_r, format="png", bbox_inches="tight")
+buf_r.seek(0)
+st.download_button(
+    "Download Visualisasi PCA Regresi",
+    buf_r,
+    "pca_regresi_ensemble.png",
+    "image/png"
+)
 
