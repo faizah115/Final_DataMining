@@ -1,6 +1,4 @@
-# ===============================
 # IMPORT LIBRARY
-# ===============================
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -17,15 +15,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Ridge, Lasso, ElasticNet
 from sklearn.metrics import mean_squared_error, r2_score
 
-# ===============================
-# CONFIG STREAMLIT
-# ===============================
-st.set_page_config(page_title="UAS Data Mining", layout="wide")
-st.title("Analisis Clustering dan Regresi Ensemble")
+"""Pada bagian awal Kode ini berfungsi untuk mengimpor dan menyiapkan library yang dibutuhkan dalam proses analisis data, mulai dari pengolahan dan pembersihan dataset menggunakan pandas dan NumPy, pembuatan visualisasi dengan Matplotlib dan Seaborn, tahap praproses data seperti encoding dan scaling, penerapan Agglomerative Clustering untuk pengelompokan data, penggunaan PCA untuk visualisasi hasil clustering, penerapan ensemble regression menggunakan Ridge, Lasso, dan ElasticNet, serta evaluasi performa model regresi menggunakan metrik Mean Squared Error (MSE) dan R² Score."""
 
-# ===============================
+
+st.set_page_config(page_title="Final Data Mining", layout="wide")
+st.title("“Analisis Segmentasi Penjualan Tiket Pesawat Menggunakan Agglomerative Clustering Gaussian Mixture Model (GMM) dan Ensemble Methode Regression(Ridge, Lasso, dan ElasticNet”")
+
 # LOAD DATA
-# ===============================
 uploaded_file = st.file_uploader(
     "Upload dataset CSV",
     type=["csv"]
@@ -40,26 +36,19 @@ else:
     st.subheader("Data Awal")
     st.dataframe(df.head())
 
-
-# ===============================
 # DATA CLEANING
-# ===============================
-st.header("🧹 Data Cleaning")
+st.header("ata Cleaning")
 
 # Ukuran data awal
 st.write("Ukuran data awal (baris, kolom):", df.shape)
 
-# -------------------------------
 # Missing Value
-# -------------------------------
 st.subheader("Missing Value per Kolom")
 missing_df = df.isnull().sum().reset_index()
 missing_df.columns = ["Kolom", "Jumlah Missing"]
 st.dataframe(missing_df)
 
-# -------------------------------
 # Data Duplikat
-# -------------------------------
 jumlah_duplikat = df.duplicated().sum()
 st.write("Jumlah data duplikat sebelum dihapus:", jumlah_duplikat)
 
@@ -68,9 +57,7 @@ df = df.drop_duplicates()
 
 st.write("Jumlah data duplikat setelah dihapus:", df.duplicated().sum())
 
-# -------------------------------
 # Konversi Date
-# -------------------------------
 if "Date" in df.columns:
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
     st.subheader("Contoh Kolom Date Setelah Konversi")
@@ -79,9 +66,15 @@ if "Date" in df.columns:
 # Ukuran data akhir
 st.write("Ukuran data setelah cleaning:", df.shape)
 
-# ===============================
+
+"""Kode data cleaning tersebut digunakan untuk mengevaluasi dan memastikan kualitas dataset sebelum dilakukan analisis lebih lanjut, dengan cara menampilkan ukuran data awal, memeriksa jumlah missing value pada setiap kolom, mengecek keberadaan data duplikat, menghapus data duplikat jika ada, serta mengonversi kolom Date ke format datetime agar sesuai untuk analisis. Setelah proses pembersihan dilakukan, kode kembali menampilkan kondisi data untuk memastikan tidak ada perubahan yang tidak diinginkan, lalu menyimpan dataset hasil pembersihan ke dalam file data_cleaned.csv sebagai data siap olah.
+
+
+Pada tahap Data Cleaning tersebut, beberapa langkah pembersihan dan pengecekan kualitas data dilakukan untuk memastikan dataset siap dianalisis. Pertama, ditampilkan ukuran data awal untuk mengetahui jumlah baris dan kolom sebelum proses pembersihan. Selanjutnya, dilakukan pemeriksaan missing value pada setiap kolom menggunakan df.isnull().sum() untuk memastikan tidak ada nilai kosong yang dapat memengaruhi hasil analisis. Setelah itu, data duplikat dihapus menggunakan drop_duplicates() agar tidak terjadi pengulangan data yang dapat menimbulkan bias. Kemudian, jika terdapat kolom Date, nilainya dikonversi ke format datetime agar dapat digunakan dengan benar pada proses analisis lanjutan, seperti feature engineering berbasis waktu. Terakhir, ditampilkan kembali ukuran data setelah cleaning untuk memastikan bahwa proses pembersihan telah berjalan dengan baik dan untuk melihat apakah terjadi perubahan jumlah data.
+"""
+
+
 # FEATURE ENGINEERING (TIME-BASED)
-# ===============================
 if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
 
     # Feature engineering waktu
@@ -89,13 +82,11 @@ if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
     df["Day"] = df["Date"].dt.day
     df["DayOfWeek"] = df["Date"].dt.dayofweek
 
-    st.subheader("📊 Visualisasi Fitur Waktu")
+    st.subheader("Visualisasi Fitur Waktu")
 
     col1, col2, col3 = st.columns(3)
 
-    # -------------------------------
     # Distribusi Transaksi per Bulan
-    # -------------------------------
     with col1:
         fig_m, ax_m = plt.subplots()
         sns.countplot(x="Month", data=df, ax=ax_m)
@@ -104,9 +95,7 @@ if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
         ax_m.set_ylabel("Jumlah Data")
         st.pyplot(fig_m)
 
-    # -------------------------------
     # Distribusi Transaksi per Hari
-    # -------------------------------
     with col2:
         fig_d, ax_d = plt.subplots()
         sns.countplot(x="Day", data=df, ax=ax_d)
@@ -115,9 +104,7 @@ if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
         ax_d.set_ylabel("Jumlah Data")
         st.pyplot(fig_d)
 
-    # ---------------------------------------
     # Distribusi Transaksi per Hari dalam Minggu
-    # ---------------------------------------
     with col3:
         fig_w, ax_w = plt.subplots()
         sns.countplot(x="DayOfWeek", data=df, ax=ax_w)
@@ -127,26 +114,17 @@ if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
         st.pyplot(fig_w)
 
 
-
-# ===============================
 # ENCODING
-# ===============================
 df_encoded = df.copy()
 encoder = LabelEncoder()
 for col in df_encoded.select_dtypes(include="object").columns:
     df_encoded[col] = encoder.fit_transform(df_encoded[col])
 
 
-st.subheader("📁 Data Setelah Encoding")
-
-# Tampilkan 5 baris saja
+st.subheader("Data Setelah Encoding")
 st.write("Contoh 5 baris data hasil encoding:")
 st.dataframe(df_encoded.head())
-
-# Simpan ke CSV
 csv_encoded = df_encoded.to_csv(index=False).encode("utf-8")
-
-# Tombol download
 st.download_button(
     label="Download Data Encoding (CSV)",
     data=csv_encoded,
@@ -154,34 +132,15 @@ st.download_button(
     mime="text/csv"
 )
 
+"""Kode ini digunakan untuk melakukan encoding pada data kategorik, yaitu mengubah nilai bertipe object (seperti teks atau kategori) menjadi nilai numerik agar dapat diproses oleh algoritma machine learning. Proses diawali dengan menyalin dataset hasil data cleaning ke dalam variabel df_encoded untuk menjaga data asli tetap utuh. Selanjutnya, setiap kolom bertipe object diubah menggunakan LabelEncoder, sehingga setiap kategori unik direpresentasikan dalam bentuk angka. Setelah proses encoding selesai, dataset hasil transformasi disimpan ke dalam file data_encoded.csv sebagai data yang siap digunakan pada tahap scaling, clustering, dan regresi.
 
 
-# ===============================
-# FEATURE ENGINEERING (DATE)
-# ===============================
-df_encoded["Month"] = df_encoded["Date"].dt.month
-df_encoded["Day"] = df_encoded["Date"].dt.day
-df_encoded["DayOfWeek"] = df_encoded["Date"].dt.dayofweek
-
-fitur_clustering = [
-    "Ticket_Quantity",
-    "Total_Price",
-    "Month",
-    "DayOfWeek"
-]
-
-fitur_clustering = [c for c in fitur_clustering if c in df_encoded.columns]
-
-st.write("Fitur clustering yang digunakan:", fitur_clustering)
-
-X = df_encoded[fitur_clustering]
-X_scaled = StandardScaler().fit_transform(X)
+Output dari proses ini adalah dataset dengan struktur dan jumlah data yang sama seperti sebelumnya (500 baris dan 9 kolom), namun seluruh kolom kategorik seperti City, Gender, Airline, dan Payment_Method telah diubah menjadi nilai numerik. Perubahan ini tidak memengaruhi jumlah data, hanya mengubah representasi nilai agar sesuai dengan kebutuhan algoritma analisis. File data_encoded.csv yang dihasilkan menjadi bukti bahwa data kategorik telah berhasil dipreproses dan siap digunakan pada tahap pemodelan selanjutnya.
+"""
 
 
-# =====================================================
-# ANALISIS 1: CLUSTERING SAJA (AGGLOMERATIVE)
-# =====================================================
-st.header("🔵 Analisis Clustering (Agglomerative)")
+# ANALISIS 1: CLUSTERING (AGGLOMERATIVE GMM)
+st.header("Analisis Clustering (Agglomerative)")
 
 cluster_model = AgglomerativeClustering(n_clusters=3)
 df_encoded["Cluster"] = cluster_model.fit_predict(X_scaled)
@@ -248,14 +207,9 @@ overall_eval_df = pd.DataFrame({
 st.dataframe(overall_eval_df)
 
 
-# =====================================================
-# ANALISIS 2: REGRESI + ENSEMBLE METHODE
-# =====================================================
 
-# =====================================================
-# A. REGRESI GLOBAL (KESELURUHAN DATA)
-# =====================================================
-st.subheader("🟢 Hasil Ensemble Regresi (Keseluruhan Data)")
+# ANALISIS 2: REGRESI + ENSEMBLE METHODE
+st.subheader("Hasil Ensemble Regresi (Keseluruhan Data)")
 
 if df_encoded.shape[0] > 10:
 
@@ -301,10 +255,8 @@ else:
 
 
 
-# =====================================================
-# B. REGRESI ENSEMBLE PER CLUSTER
-# =====================================================
-st.subheader("🟢 Hasil Evaluasi Regresi Ensemble per Cluster")
+# REGRESI ENSEMBLE PER CLUSTER
+st.subheader("Hasil Evaluasi Regresi Ensemble per Cluster")
 
 results = []
 
@@ -362,7 +314,7 @@ else:
     st.error("Tidak ada hasil regresi per cluster yang berhasil dihitung")
 
 
-# PCA REGRESI (VISUALISASI SAJA)
+# PCA REGRESI 
 fig_r, ax_r = plt.subplots()
 sns.scatterplot(
     data=df_encoded,
