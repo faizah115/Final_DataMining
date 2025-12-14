@@ -106,13 +106,20 @@ st.title("Analisis Clustering dan Regresi Ensemble")
 # ===============================
 # LOAD DATA
 # ===============================
-file = st.file_uploader("Upload dataset CSV", type=["csv"])
-if file is None:
-    st.stop()
+uploaded_file = st.file_uploader(
+    "Upload dataset CSV",
+    type=["csv"]
+)
 
-df = pd.read_csv(file)
-st.subheader("Data Awal")
-st.dataframe(df.head())
+if uploaded_file is None:
+    st.info("Silakan upload file CSV untuk memulai analisis")
+
+else:
+    df = pd.read_csv(uploaded_file)
+
+    st.subheader("Data Awal")
+    st.dataframe(df.head())
+
 
 # ===============================
 # DATA CLEANING
