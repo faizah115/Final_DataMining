@@ -217,8 +217,8 @@ if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
 # 6. ENSEMBLE REGRESSION (RIDGE + LASSO + ELASTICNET)
 target_column = "Ticket_Price"
 ensemble_results = []
-
-ensemble_results = []
+train_data = {}
+test_data = {}
 
 for cluster in sorted(df["Cluster"].unique()):
     data_cluster = df[df["Cluster"] == cluster]
@@ -226,22 +226,39 @@ for cluster in sorted(df["Cluster"].unique()):
     if len(data_cluster) < 10:
         continue
 
-    X = data_cluster.drop(columns=[target_column, "Cluster", "PCA1", "PCA2"], errors="ignore")
+    # =====================
+    # Split fitur & target
+    # =====================
+    X = data_cluster.drop(
+        columns=[target_column, "Cluster", "PCA1", "PCA2"],
+        errors="ignore"
+    )
     y = data_cluster[target_column]
+
     X = X.select_dtypes(include=[np.number])
 
+    # =====================
+    # Train-Test Split
+    # =====================
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
 
-    # Simpan CSV
+    # =====================
+    # Simpan Train & Test
+    # =====================
     train_df = X_train.copy()
     train_df[target_column] = y_train.values
 
     test_df = X_test.copy()
     test_df[target_column] = y_test.values
 
-    # Model
+    train_data[cluster] = train_df
+    test_data[cluster] = test_df
+
+    # =====================
+    # Model Ensemble
+    # =====================
     ridge = Ridge(alpha=1.0)
     lasso = Lasso(alpha=0.01)
     elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
@@ -250,20 +267,28 @@ for cluster in sorted(df["Cluster"].unique()):
     lasso.fit(X_train, y_train)
     elastic.fit(X_train, y_train)
 
+    # =====================
+    # Prediksi Ensemble
+    # =====================
     y_pred = (
-        ridge.predict(X_test) +
-        lasso.predict(X_test) +
-        elastic.predict(X_test)
+        ridge.predict(X_test)
+        + lasso.predict(X_test)
+        + elastic.predict(X_test)
     ) / 3
 
-
-
+    # =====================
+    # Evaluasi
+    # =====================
     ensemble_results.append({
         "Cluster": cluster,
         "Jumlah_Data": len(data_cluster),
         "MSE": mean_squared_error(y_test, y_pred),
         "R2_Score": r2_score(y_test, y_pred)
     })
+
+
+
+
 st.subheader("Download Data Train & Test per Cluster")
 
 for cluster in train_data.keys():
@@ -280,6 +305,11 @@ for cluster in train_data.keys():
         file_name=f"test_cluster_{cluster}.csv",
         mime="text/csv"
     )
+
+ensemble_regression_df = pd.DataFrame(ensemble_results)
+
+st.subheader("Hasil Ensemble Regresi per Cluster")
+st.dataframe(ensemble_regression_df)
 
 
 """Kode ini digunakan untuk melakukan ensemble regression pada setiap cluster hasil clustering, dengan tujuan memprediksi nilai Ticket_Price secara lebih stabil dan akurat. Proses dimulai dengan memisahkan data berdasarkan label cluster, kemudian untuk setiap cluster dilakukan pemodelan regresi menggunakan tiga algoritma regresi berbeda, yaitu Ridge, Lasso, dan ElasticNet, tanpa menggunakan Linear Regression. Fitur numerik dipilih sebagai variabel input, sementara Ticket_Price dijadikan sebagai variabel target. Prediksi akhir diperoleh dengan cara merata-ratakan hasil prediksi dari ketiga model regresi (ensemble averaging), sehingga dapat mengurangi bias dari satu model tunggal. Kinerja model kemudian dievaluasi menggunakan Mean Squared Error (MSE) dan R² Score.
