@@ -23,7 +23,7 @@ from sklearn.decomposition import PCA
 from sklearn.linear_model import Ridge, Lasso, ElasticNet
 from sklearn.metrics import mean_squared_error, r2_score
 
-"""Kode ini berfungsi untuk mengimpor dan menyiapkan library yang dibutuhkan dalam proses analisis data, mulai dari pengolahan dan pembersihan dataset menggunakan pandas dan NumPy, pembuatan visualisasi dengan Matplotlib dan Seaborn, tahap praproses data seperti encoding dan scaling, penerapan Agglomerative Clustering untuk pengelompokan data, penggunaan PCA untuk visualisasi hasil clustering, penerapan ensemble regression menggunakan Ridge, Lasso, dan ElasticNet, serta evaluasi performa model regresi menggunakan metrik Mean Squared Error (MSE) dan R² Score."""
+"""Pada bagian awal Kode ini berfungsi untuk mengimpor dan menyiapkan library yang dibutuhkan dalam proses analisis data, mulai dari pengolahan dan pembersihan dataset menggunakan pandas dan NumPy, pembuatan visualisasi dengan Matplotlib dan Seaborn, tahap praproses data seperti encoding dan scaling, penerapan Agglomerative Clustering untuk pengelompokan data, penggunaan PCA untuk visualisasi hasil clustering, penerapan ensemble regression menggunakan Ridge, Lasso, dan ElasticNet, serta evaluasi performa model regresi menggunakan metrik Mean Squared Error (MSE) dan R² Score."""
 
 
 # CONFIG STREAMLIT
