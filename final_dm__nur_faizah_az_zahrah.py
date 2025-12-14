@@ -209,7 +209,7 @@ if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
 
 
 # 6. ENSEMBLE REGRESSION (RIDGE + LASSO + ELASTICNET)
-target_column = "Ticket_Price"
+target_column = "Total"
 ensemble_results = []
 train_data = {}
 test_data = {}
