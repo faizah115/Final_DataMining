@@ -51,7 +51,7 @@ else:
 """
 
 # 1. DATA CLEANING
-st.subheader("🧹 Data Cleaning")
+st.subheader("Data Cleaning")
 
 # Ukuran data awal
 st.write("Ukuran data awal:", df.shape)
@@ -70,22 +70,16 @@ df = df.drop_duplicates()
 # Tampilkan informasi penghapusan duplikat
 st.write("Jumlah data duplikat setelah cleaning:", df.duplicated().sum())
 
-# Konversi kolom Date
 # Konversi kolom Date ke datetime
 if "Date" in df.columns:
-  # Pastikan kolom Date sudah datetime
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
-
 st.subheader("Contoh data kolom Date setelah konversi ke datetime")
 
-# Paksa format tampil YYYY-MM-DD HH:MM:SS
+
 df_date_tampil = df[["Date"]].copy()
 df_date_tampil["Date"] = df_date_tampil["Date"].dt.strftime("%Y-%m-%d %H:%M:%S")
 
 st.dataframe(df_date_tampil.head())
-
-
-# Ukuran data setelah cleaning
 st.write("Ukuran data setelah cleaning:", df.shape)
 
 
@@ -101,8 +95,13 @@ st.subheader("Encoding Data Kategorik")
 df_encoded = df.copy()
 encoder = LabelEncoder()
 for col in df_encoded.select_dtypes(include="object").columns:
-        df_encoded[col] = encoder.fit_transform(df_encoded[col])
+    df_encoded[col] = encoder.fit_transform(df_encoded[col])
 st.dataframe(df_encoded.head())
+
+# Simpan ke file CSV
+df_encoded.to_csv("data_encoded.csv", index=False)
+
+st.success("Data hasil encoding berhasil disimpan sebagai data_encoded.csv")
 
 
 """Kode ini digunakan untuk melakukan encoding pada data kategorik, yaitu mengubah nilai bertipe object (seperti teks atau kategori) menjadi nilai numerik agar dapat diproses oleh algoritma machine learning. Proses diawali dengan menyalin dataset hasil data cleaning ke dalam variabel df_encoded untuk menjaga data asli tetap utuh. Selanjutnya, setiap kolom bertipe object diubah menggunakan LabelEncoder, sehingga setiap kategori unik direpresentasikan dalam bentuk angka. Setelah proses encoding selesai, dataset hasil transformasi disimpan ke dalam file data_encoded.csv sebagai data yang siap digunakan pada tahap scaling, clustering, dan regresi.
@@ -175,9 +174,7 @@ if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
 
     col1, col2, col3 = st.columns(3)
 
-    # =====================
     # Distribusi Bulan
-    # =====================
     with col1:
         fig_m, ax_m = plt.subplots()
         sns.countplot(x="Month", data=df, ax=ax_m)
@@ -186,9 +183,7 @@ if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
         ax_m.set_ylabel("Jumlah Data")
         st.pyplot(fig_m)
 
-    # =====================
     # Distribusi Hari
-    # =====================
     with col2:
         fig_d, ax_d = plt.subplots()
         sns.countplot(x="Day", data=df, ax=ax_d)
@@ -197,9 +192,7 @@ if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
         ax_d.set_ylabel("Jumlah Data")
         st.pyplot(fig_d)
 
-    # =====================
     # Distribusi Hari dalam Minggu
-    # =====================
     with col3:
         fig_w, ax_w = plt.subplots()
         sns.countplot(x="DayOfWeek", data=df, ax=ax_w)
@@ -222,9 +215,7 @@ for cluster in sorted(df["Cluster"].unique()):
     if len(data_cluster) < 10:
         continue
 
-    # =====================
     # Split fitur & target
-    # =====================
     X = data_cluster.drop(
         columns=[target_column, "Cluster", "PCA1", "PCA2"],
         errors="ignore"
@@ -233,16 +224,12 @@ for cluster in sorted(df["Cluster"].unique()):
 
     X = X.select_dtypes(include=[np.number])
 
-    # =====================
     # Train-Test Split
-    # =====================
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
 
-    # =====================
     # Simpan Train & Test
-    # =====================
     train_df = X_train.copy()
     train_df[target_column] = y_train.values
 
@@ -252,9 +239,7 @@ for cluster in sorted(df["Cluster"].unique()):
     train_data[cluster] = train_df
     test_data[cluster] = test_df
 
-    # =====================
     # Model Ensemble
-    # =====================
     ridge = Ridge(alpha=1.0)
     lasso = Lasso(alpha=0.01)
     elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
@@ -263,18 +248,14 @@ for cluster in sorted(df["Cluster"].unique()):
     lasso.fit(X_train, y_train)
     elastic.fit(X_train, y_train)
 
-    # =====================
     # Prediksi Ensemble
-    # =====================
     y_pred = (
         ridge.predict(X_test)
         + lasso.predict(X_test)
         + elastic.predict(X_test)
     ) / 3
 
-    # =====================
     # Evaluasi
-    # =====================
     ensemble_results.append({
         "Cluster": cluster,
         "Jumlah_Data": len(data_cluster),
@@ -331,9 +312,7 @@ ax.set_xlabel("Cluster")
 ax.set_ylabel("Jumlah Data")
 st.pyplot(fig)
 
-# =====================
 # DOWNLOAD OUTPUT
-# =====================
 st.subheader("Download Output")
 
 st.download_button(
