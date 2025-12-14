@@ -105,6 +105,12 @@ for col in df_encoded.select_dtypes(include="object").columns:
 st.dataframe(df_encoded.head())
 
 
+"""Kode ini digunakan untuk melakukan encoding pada data kategorik, yaitu mengubah nilai bertipe object (seperti teks atau kategori) menjadi nilai numerik agar dapat diproses oleh algoritma machine learning. Proses diawali dengan menyalin dataset hasil data cleaning ke dalam variabel df_encoded untuk menjaga data asli tetap utuh. Selanjutnya, setiap kolom bertipe object diubah menggunakan LabelEncoder, sehingga setiap kategori unik direpresentasikan dalam bentuk angka. Setelah proses encoding selesai, dataset hasil transformasi disimpan ke dalam file data_encoded.csv sebagai data yang siap digunakan pada tahap scaling, clustering, dan regresi.
+
+
+Output dari proses ini adalah dataset dengan struktur dan jumlah data yang sama seperti sebelumnya (500 baris dan 9 kolom), namun seluruh kolom kategorik seperti City, Gender, Airline, dan Payment_Method telah diubah menjadi nilai numerik. Perubahan ini tidak memengaruhi jumlah data, hanya mengubah representasi nilai agar sesuai dengan kebutuhan algoritma analisis. File data_encoded.csv yang dihasilkan menjadi bukti bahwa data kategorik telah berhasil dipreproses dan siap digunakan pada tahap pemodelan selanjutnya.
+"""
+
 
 # 3. SCALING DATA (NUMERIC ONLY)
 st.subheader("Scaling Data")
@@ -113,6 +119,9 @@ df_numeric = df_encoded.drop(columns=datetime_cols)
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(df_numeric)
 
+
+"""Pada tahap scaling data, dilakukan pemilihan fitur numerik dengan menghapus kolom bertipe datetime karena tidak dapat diproses langsung oleh algoritma machine learning. Selanjutnya, data numerik dinormalisasi menggunakan StandardScaler agar setiap fitur berada pada skala yang sebanding, sehingga proses perhitungan jarak pada Agglomerative Clustering dapat berjalan secara optimal dan tidak dipengaruhi oleh perbedaan skala antar variabel.
+"""
 
 
 # 4. CLUSTERING
@@ -123,12 +132,11 @@ df["Cluster"] = cluster_model.fit_predict(X_scaled)
 st.write("Distribusi Cluster:")
 st.write(df["Cluster"].value_counts())
 
-"""Kode ini digunakan untuk melakukan encoding pada data kategorik, yaitu mengubah nilai bertipe object (seperti teks atau kategori) menjadi nilai numerik agar dapat diproses oleh algoritma machine learning. Proses diawali dengan menyalin dataset hasil data cleaning ke dalam variabel df_encoded untuk menjaga data asli tetap utuh. Selanjutnya, setiap kolom bertipe object diubah menggunakan LabelEncoder, sehingga setiap kategori unik direpresentasikan dalam bentuk angka. Setelah proses encoding selesai, dataset hasil transformasi disimpan ke dalam file data_encoded.csv sebagai data yang siap digunakan pada tahap scaling, clustering, dan regresi.
 
+"""Kode ini digunakan untuk melakukan proses clustering pada data penjualan tiket pesawat menggunakan algoritma Agglomerative Clustering. Pengguna dapat menentukan jumlah cluster secara interaktif melalui slider pada aplikasi Streamlit. Data yang telah melalui tahap preprocessing kemudian dikelompokkan berdasarkan tingkat kemiripan karakteristiknya, dan hasil clustering disimpan dalam kolom baru bernama Cluster pada dataset.
 
-Output dari proses ini adalah dataset dengan struktur dan jumlah data yang sama seperti sebelumnya (500 baris dan 9 kolom), namun seluruh kolom kategorik seperti City, Gender, Airline, dan Payment_Method telah diubah menjadi nilai numerik. Perubahan ini tidak memengaruhi jumlah data, hanya mengubah representasi nilai agar sesuai dengan kebutuhan algoritma analisis. File data_encoded.csv yang dihasilkan menjadi bukti bahwa data kategorik telah berhasil dipreproses dan siap digunakan pada tahap pemodelan selanjutnya.
+Output dari kode ini berupa pembagian data ke dalam beberapa cluster sesuai jumlah yang dipilih pengguna, di mana setiap baris data memiliki label cluster tertentu (misalnya cluster 0, 1, atau 2). Selain itu, ditampilkan juga distribusi jumlah data pada setiap cluster, sehingga pengguna dapat melihat seberapa banyak data yang masuk ke masing-masing kelompok hasil clustering.
 """
-
 
 
 # 5. PCA UNTUK VISUALISASI CLUSTER
