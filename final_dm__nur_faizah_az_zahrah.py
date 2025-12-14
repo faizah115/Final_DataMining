@@ -169,6 +169,20 @@ cluster_eval = (
 
 st.dataframe(cluster_eval)
 
+st.subheader("Evaluasi Clustering Keseluruhan")
+
+overall_silhouette = silhouette_score(X_scaled, df_encoded["Cluster"])
+
+overall_eval_df = pd.DataFrame({
+    "Jumlah_Cluster": [df_encoded["Cluster"].nunique()],
+    "Jumlah_Data": [len(df_encoded)],
+    "Silhouette_Score_Keseluruhan": [overall_silhouette]
+})
+
+st.dataframe(overall_eval_df)
+
+
+
 # =====================================================
 # ANALISIS 2: REGRESI + ENSEMBLE
 # =====================================================
@@ -176,6 +190,52 @@ st.header("🟢 Analisis Regresi + Ensemble")
 
 target_column = "Ticket_Quantity"
 results = []
+
+for c in sorted(df_encoded["Cluster"].unique()):
+    data_c = df_encoded[df_encoded["Cluster"] == c]
+
+    # ⛔ Skip kalau data terlalu sedikit
+    if len(data_c) < 10:
+        st.warning(f"Cluster {c} dilewati karena data terlalu sedikit")
+        continue
+
+    X = data_c.drop(columns=[target_column, "Cluster", "PCA1", "PCA2"], errors="ignore")
+    y = data_c[target_column]
+
+    X = X.select_dtypes(include=[np.number])
+
+    # ⛔ Skip kalau fitur kosong
+    if X.shape[1] == 0:
+        st.warning(f"Cluster {c} dilewati karena fitur kosong")
+        continue
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    ridge = Ridge(alpha=1.0)
+    lasso = Lasso(alpha=0.01)
+    elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
+
+    ridge.fit(X_train, y_train)
+    lasso.fit(X_train, y_train)
+    elastic.fit(X_train, y_train)
+
+    y_pred = (
+        ridge.predict(X_test)
+        + lasso.predict(X_test)
+        + elastic.predict(X_test)
+    ) / 3
+
+    results.append({
+        "Cluster": c,
+        "Jumlah_Data": len(data_c),
+        "MSE": mean_squared_error(y_test, y_pred),
+        "R2_Score": r2_score(y_test, y_pred)
+    })
+
+st.write("Jumlah hasil regresi:", len(results))
+
 
 for c in sorted(df_encoded["Cluster"].unique()):
     data_c = df_encoded[df_encoded["Cluster"] == c]
