@@ -44,9 +44,6 @@ else:
 # ===============================
 # DATA CLEANING
 # ===============================
-# ===============================
-# DATA CLEANING
-# ===============================
 st.header("🧹 Data Cleaning")
 
 # Ukuran data awal
@@ -183,13 +180,9 @@ overall_eval_df = pd.DataFrame({
 st.dataframe(overall_eval_df)
 
 
-
 # =====================================================
-# ANALISIS 2: REGRESI + ENSEMBLE
+# ANALISIS 2: REGRESI + ENSEMBLE METHODE
 # =====================================================
-st.header("🟢 Analisis Regresi + Ensemble")
-
-target_column = "Ticket_Quantity"
 
 # =====================================================
 # A. REGRESI GLOBAL (KESELURUHAN DATA)
