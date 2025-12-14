@@ -228,38 +228,29 @@ st.subheader("Hasil Ensemble Regresi")
 
 # OUTPUT REGRESI
 result_df = pd.DataFrame(results)
-st.subheader("Hasil Ensemble Regresi (Keseluruhan Data)")
+st.subheader("Hasil Evaluasi Regresi Ensemble")
+st.dataframe(result_df)
 
-X_global = df_encoded.drop(
-    columns=[target_column, "Cluster", "PCA1", "PCA2"],
-    errors="ignore"
+# PCA REGRESI (VISUALISASI SAJA)
+fig_r, ax_r = plt.subplots()
+sns.scatterplot(
+    data=df_encoded,
+    x="PCA1",
+    y="PCA2",
+    hue="Cluster",
+    palette="Set1",
+    ax=ax_r
 )
-y_global = df_encoded[target_column]
+ax_r.set_title("PCA untuk Analisis Regresi Ensemble")
+st.pyplot(fig_r)
 
-X_global = X_global.select_dtypes(include=[np.number])
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X_global, y_global, test_size=0.2, random_state=42
+buf_r = io.BytesIO()
+fig_r.savefig(buf_r, format="png", bbox_inches="tight")
+buf_r.seek(0)
+st.download_button(
+    "Download Visualisasi PCA Regresi",
+    buf_r,
+    "pca_regresi_ensemble.png",
+    "image/png"
 )
 
-ridge = Ridge(alpha=1.0)
-lasso = Lasso(alpha=0.01)
-elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
-
-ridge.fit(X_train, y_train)
-lasso.fit(X_train, y_train)
-elastic.fit(X_train, y_train)
-
-y_pred = (
-    ridge.predict(X_test)
-    + lasso.predict(X_test)
-    + elastic.predict(X_test)
-) / 3
-
-global_result = pd.DataFrame([{
-    "MSE": mean_squared_error(y_test, y_pred),
-    "R2_Score": r2_score(y_test, y_pred),
-    "Jumlah_Data": len(df_encoded)
-}])
-
-st.dataframe(global_result)
