@@ -187,70 +187,74 @@ st.dataframe(overall_eval_df)
 # =====================================================
 # ANALISIS 2: REGRESI + ENSEMBLE
 # =====================================================
-st.header("🟢 Analisis Regresi + Ensemble")
+st.header("B. Analisis Regresi + Ensemble")
 
-target_column = "Ticket_Quantity"
-results = []
-for c in sorted(df_encoded["Cluster"].unique()):
-    data_c = df_encoded[df_encoded["Cluster"] == c]
+target = "Ticket_Quantity"
 
-    X = data_c.drop(columns=[target_column, "Cluster", "PCA1", "PCA2"], errors="ignore")
-    y = data_c[target_column]
-
-    X = X.select_dtypes(include=[np.number])
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
-    )
-
-    ridge = Ridge(alpha=1.0)
-    lasso = Lasso(alpha=0.01)
-    elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
-
-    ridge.fit(X_train, y_train)
-    lasso.fit(X_train, y_train)
-    elastic.fit(X_train, y_train)
-
-    y_pred = (
-        ridge.predict(X_test)
-        + lasso.predict(X_test)
-        + elastic.predict(X_test)
-    ) / 3
-
-    results.append({
-        "Cluster": c,
-        "Jumlah_Data": len(data_c),
-        "MSE": mean_squared_error(y_test, y_pred),
-        "R2_Score": r2_score(y_test, y_pred)
-    })
-
-st.subheader("Hasil Ensemble Regresi")
-
-# OUTPUT REGRESI
-result_df = pd.DataFrame(results)
-st.subheader("Hasil Evaluasi Regresi Ensemble")
-st.dataframe(result_df)
-
-# PCA REGRESI (VISUALISASI SAJA)
-fig_r, ax_r = plt.subplots()
-sns.scatterplot(
-    data=df_encoded,
-    x="PCA1",
-    y="PCA2",
-    hue="Cluster",
-    palette="Set1",
-    ax=ax_r
+X = df_encoded.drop(
+    columns=[target, "Cluster", "PCA1", "PCA2"],
+    errors="ignore"
 )
-ax_r.set_title("PCA untuk Analisis Regresi Ensemble")
-st.pyplot(fig_r)
+y = df_encoded[target]
 
-buf_r = io.BytesIO()
-fig_r.savefig(buf_r, format="png", bbox_inches="tight")
-buf_r.seek(0)
+X = X.select_dtypes(include=np.number)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# --- Model Ensemble
+ridge = Ridge()
+lasso = Lasso(alpha=0.01)
+elastic = ElasticNet(alpha=0.01, l1_ratio=0.5)
+
+ridge.fit(X_train, y_train)
+lasso.fit(X_train, y_train)
+elastic.fit(X_train, y_train)
+
+y_pred = (
+    ridge.predict(X_test)
+    + lasso.predict(X_test)
+    + elastic.predict(X_test)
+) / 3
+
+# --- Evaluasi Regresi
+mse = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+
+st.metric("MSE", round(mse, 4))
+st.metric("RMSE", round(rmse, 4))
+
+# --- PCA Visualization Regresi
+pca_reg = PCA(n_components=2)
+X_reg_pca = pca_reg.fit_transform(X_scaled)
+
+fig2, ax2 = plt.subplots()
+ax2.scatter(X_reg_pca[:, 0], X_reg_pca[:, 1], alpha=0.6)
+ax2.set_title("PCA Visualization - Regression Data")
+ax2.set_xlabel("PCA1")
+ax2.set_ylabel("PCA2")
+st.pyplot(fig2)
+
+buf2 = io.BytesIO()
+fig2.savefig(buf2, format="png", bbox_inches="tight")
+buf2.seek(0)
+
 st.download_button(
-    "Download Visualisasi PCA Regresi",
-    buf_r,
-    "pca_regresi_ensemble.png",
-    "image/png"
+    "Download PCA Regression (PNG)",
+    data=buf2,
+    file_name="pca_regression.png",
+    mime="image/png"
 )
 
+# =====================================================
+# FINAL DOWNLOAD
+# =====================================================
+st.subheader("Download Dataset Akhir")
+
+st.download_button(
+    "Download Dataset Lengkap (CSV)",
+    data=df_encoded.to_csv(index=False),
+    file_name="hasil_akhir_clustering_regresi.csv",
+    mime="text/csv"
+)
