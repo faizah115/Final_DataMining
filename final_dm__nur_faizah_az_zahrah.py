@@ -93,15 +93,18 @@ Pada tahap Data Cleaning tersebut, beberapa langkah pembersihan dan pengecekan k
 # 2. ENCODING DATA KATEGORIK
 st.subheader("Encoding Data Kategorik")
 df_encoded = df.copy()
+
 encoder = LabelEncoder()
 for col in df_encoded.select_dtypes(include="object").columns:
     df_encoded[col] = encoder.fit_transform(df_encoded[col])
-st.dataframe(df_encoded.head())
 
-# Simpan ke file CSV
-df_encoded.to_csv("data_encoded.csv", index=False)
+st.download_button(
+    label="Download Data Encoding",
+    data=df_encoded.to_csv(index=False),
+    file_name="data_encoded.csv",
+    mime="text/csv"
+)
 
-st.success("Data hasil encoding berhasil disimpan sebagai data_encoded.csv")
 
 
 """Kode ini digunakan untuk melakukan encoding pada data kategorik, yaitu mengubah nilai bertipe object (seperti teks atau kategori) menjadi nilai numerik agar dapat diproses oleh algoritma machine learning. Proses diawali dengan menyalin dataset hasil data cleaning ke dalam variabel df_encoded untuk menjaga data asli tetap utuh. Selanjutnya, setiap kolom bertipe object diubah menggunakan LabelEncoder, sehingga setiap kategori unik direpresentasikan dalam bentuk angka. Setelah proses encoding selesai, dataset hasil transformasi disimpan ke dalam file data_encoded.csv sebagai data yang siap digunakan pada tahap scaling, clustering, dan regresi.
