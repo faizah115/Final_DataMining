@@ -16,6 +16,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import io
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.cluster import AgglomerativeClustering
@@ -135,6 +136,32 @@ cluster_model = AgglomerativeClustering(n_clusters=n_cluster)
 df["Cluster"] = cluster_model.fit_predict(X_scaled)
 st.write("Distribusi Cluster:")
 st.write(df["Cluster"].value_counts())
+
+
+st.subheader("Visualisasi Clustering (PCA)")
+fig2, ax2 = plt.subplots()
+sns.scatterplot(
+    x="PCA1",
+    y="PCA2",
+    hue="Cluster",
+    data=df,
+    palette="Set2",
+    ax=ax2
+)
+ax2.set_title("Visualisasi Cluster Menggunakan PCA")
+st.pyplot(fig2)
+
+buf2 = io.BytesIO()
+fig2.savefig(buf2, format="png", bbox_inches="tight")
+buf2.seek(0)
+
+st.download_button(
+    label="Download Visualisasi PCA Cluster",
+    data=buf2,
+    file_name="visualisasi_cluster_pca.png",
+    mime="image/png"
+)
+
 
 
 """Kode ini digunakan untuk melakukan proses clustering pada data penjualan tiket pesawat menggunakan algoritma Agglomerative Clustering. Pengguna dapat menentukan jumlah cluster secara interaktif melalui slider pada aplikasi Streamlit. Data yang telah melalui tahap preprocessing kemudian dikelompokkan berdasarkan tingkat kemiripan karakteristiknya, dan hasil clustering disimpan dalam kolom baru bernama Cluster pada dataset.
@@ -294,13 +321,12 @@ st.subheader("Hasil Ensemble Regresi per Cluster")
 st.dataframe(ensemble_regression_df)
 
 
-"""Kode ini digunakan untuk melakukan ensemble regression pada setiap cluster hasil clustering, dengan tujuan memprediksi nilai Ticket_Price secara lebih stabil dan akurat. Proses dimulai dengan memisahkan data berdasarkan label cluster, kemudian untuk setiap cluster dilakukan pemodelan regresi menggunakan tiga algoritma regresi berbeda, yaitu Ridge, Lasso, dan ElasticNet, tanpa menggunakan Linear Regression. Fitur numerik dipilih sebagai variabel input, sementara Ticket_Price dijadikan sebagai variabel target. Prediksi akhir diperoleh dengan cara merata-ratakan hasil prediksi dari ketiga model regresi (ensemble averaging), sehingga dapat mengurangi bias dari satu model tunggal. Kinerja model kemudian dievaluasi menggunakan Mean Squared Error (MSE) dan R² Score.
+"""Tabel ini menampilkan hasil evaluasi ensemble regression (Ridge, Lasso, dan ElasticNet) untuk memprediksi Ticket_Quantity pada setiap cluster hasil Agglomerative Clustering. Kinerja model diukur menggunakan MSE (Mean Squared Error) dan R² Score, di mana nilai MSE yang lebih kecil dan R² yang mendekati 1 menunjukkan performa model yang lebih baik.
 
+Cluster 0 memiliki 202 data, menjadikannya cluster dengan jumlah data terbanyak. Nilai R² sebesar 0,8728 menunjukkan bahwa sekitar 87% variasi jumlah tiket dalam cluster ini dapat dijelaskan oleh model regresi. Nilai MSE sebesar 0,1722 tergolong cukup kecil, yang berarti kesalahan prediksi relatif rendah. Secara keseluruhan, model bekerja cukup baik pada cluster ini, meskipun variasi data masih cukup beragam.
 
-Pada Cluster 0, terdapat 202 data dengan nilai R² sebesar 0,8033, yang menunjukkan bahwa sekitar 80% variasi harga tiket pada cluster ini dapat dijelaskan oleh model regresi. Nilai MSE yang relatif besar menunjukkan adanya variasi harga yang cukup tinggi dalam cluster ini, sehingga tingkat kesalahan prediksi masih cukup signifikan meskipun model sudah mampu menangkap pola umum data.
-Cluster 1 memiliki 122 data dan menunjukkan performa terbaik, dengan R² sebesar 0,9719 dan nilai MSE yang paling kecil dibandingkan cluster lainnya. Hal ini mengindikasikan bahwa model ensemble regression sangat baik dalam memprediksi harga tiket pada cluster ini. Pola data yang lebih homogen menyebabkan hubungan antara variabel input dan harga tiket dapat dimodelkan secara lebih akurat.
-Sementara itu, Cluster 2 terdiri dari 176 data dengan nilai R² sebesar 0,7653, yang berarti sekitar 76% variasi harga tiket dapat dijelaskan oleh model. Nilai MSE yang cukup besar menunjukkan bahwa karakteristik data pada cluster ini lebih beragam, sehingga tingkat kesalahan prediksi lebih tinggi dibandingkan Cluster 1, namun masih dalam kategori performa yang cukup baik.
-Secara keseluruhan, hasil ini menunjukkan bahwa penerapan ensemble regression mampu memberikan performa prediksi yang baik pada setiap cluster, dengan akurasi yang bervariasi tergantung pada karakteristik masing-masing cluster. Pendekatan ini efektif karena mengombinasikan beberapa model regresi, sehingga hasil prediksi menjadi lebih stabil dan tidak bergantung pada satu model tunggal.
+Cluster 1 terdiri dari 122 data dan menunjukkan performansi terbaik di antara semua cluster. Nilai R² sebesar 0,9582 menandakan bahwa model mampu menjelaskan hampir 96% variasi jumlah tiket, sementara MSE sebesar 0,0198 sangat kecil. Hal ini menunjukkan bahwa pola pembelian tiket pada cluster ini sangat konsisten, sehingga mudah diprediksi oleh model ensemble regression.
+Cluster 2 memiliki 176 data dengan nilai R² sebesar 0,8923, yang berarti sekitar 89% variasi jumlah tiket dapat dijelaskan oleh model. Nilai MSE sebesar 0,1365 masih tergolong rendah, meskipun lebih besar dibandingkan Cluster 1. Ini menunjukkan bahwa model tetap bekerja dengan baik, namun karakteristik data pada cluster ini lebih bervariasi, sehingga tingkat kesalahan prediksi sedikit lebih tinggi.
 """
 
 
@@ -333,21 +359,14 @@ st.download_button(
 
 """Kode ini digunakan untuk memvisualisasikan hasil clustering agar pola dan distribusi data dapat dipahami secara intuitif. Visualisasi pertama menggunakan countplot untuk menampilkan jumlah data pada setiap cluster, sehingga dapat diketahui apakah pembagian cluster seimbang atau tidak. Visualisasi kedua menggunakan scatter plot berbasis PCA1 dan PCA2, yang merupakan hasil reduksi dimensi dari PCA, untuk menampilkan sebaran data dua dimensi dengan warna berbeda sesuai cluster hasil Agglomerative Clustering.
 
+Cluster 0 merupakan kelompok dengan jumlah data paling banyak. Pelanggan dalam cluster ini umumnya melakukan pembelian tiket dalam jumlah yang relatif standar atau umum, misalnya satu hingga dua tiket per transaksi. Pola pembeliannya cukup konsisten dan mewakili perilaku mayoritas pelanggan. Dari sisi bisnis, cluster ini dapat dianggap sebagai pelanggan reguler yang menjadi tulang punggung jumlah transaksi karena frekuensi kemunculannya tinggi meskipun jumlah tiket per transaksi tidak terlalu besar.
 
-Berdasarkan grafik Distribusi Data per Cluster, terlihat bahwa data terbagi ke dalam tiga cluster, dengan Cluster 0 memiliki jumlah data paling banyak, diikuti oleh Cluster 2, dan Cluster 1 sebagai cluster dengan jumlah data paling sedikit. Hal ini menunjukkan bahwa segmentasi data tidak sepenuhnya seimbang, namun tetap wajar dalam proses clustering. Pada grafik Visualisasi Clustering (Agglomerative) berbasis PCA, terlihat bahwa masing-masing cluster memiliki pola sebaran yang relatif berbeda, meskipun terdapat sedikit tumpang tindih antar cluster. Secara keseluruhan, visualisasi ini menunjukkan bahwa proses Agglomerative Clustering berhasil mengelompokkan data ke dalam beberapa segmen yang dapat dibedakan secara visual, sehingga mendukung hasil analisis clustering dan regresi yang telah dilakukan sebelumnya.
+Cluster 1 – Pelanggan dengan Pola Pembelian Konsisten
 
-Interpretasi Makna Tiap Cluster
-Cluster 0 – Pelanggan Umum
+Cluster 1 memiliki jumlah data paling sedikit, tetapi menunjukkan pola yang paling stabil. Hal ini terlihat dari nilai R² yang sangat tinggi, yang menandakan bahwa jumlah tiket yang dibeli dalam cluster ini dapat diprediksi dengan sangat baik. Pelanggan pada cluster ini cenderung memiliki kebiasaan pembelian yang jelas dan berulang, misalnya selalu membeli jumlah tiket tertentu. Secara bisnis, cluster ini bisa diartikan sebagai pelanggan dengan pola perjalanan yang terencana dan konsisten.
 
-Cluster 0 merupakan kelompok dengan jumlah data paling banyak. Hal ini menunjukkan bahwa cluster ini mewakili pola pembelian tiket yang paling sering terjadi. Transaksi dalam cluster ini umumnya berada pada kisaran harga dan jumlah tiket yang normal atau menengah. Dari sisi bisnis, cluster ini dapat dianggap sebagai pelanggan umum atau reguler yang melakukan pembelian tiket secara rutin dan menjadi penyumbang utama jumlah transaksi.
+Cluster 2 – Pelanggan dengan Perilaku Pembelian Beragam
 
+Cluster 2 memiliki jumlah data yang cukup besar dengan variasi jumlah tiket yang lebih tinggi. Pelanggan dalam cluster ini tidak memiliki pola pembelian yang seragam; terkadang membeli sedikit tiket, namun pada kesempatan lain bisa membeli lebih banyak. Hal ini menyebabkan nilai R² lebih rendah dibandingkan Cluster 1. Dari sudut pandang bisnis, cluster ini menggambarkan pelanggan yang perilaku pembeliannya dipengaruhi oleh kondisi tertentu, seperti perjalanan kelompok, kebutuhan mendadak, atau promo.
 
-Cluster 1 – Pelanggan dengan Pola Khusus
-
-Cluster 1 memiliki jumlah data paling sedikit, namun pola datanya relatif lebih seragam. Hal ini menunjukkan bahwa transaksi dalam cluster ini memiliki karakteristik yang lebih spesifik, misalnya harga tiket yang lebih tinggi atau jenis layanan tertentu. Dalam konteks bisnis, cluster ini dapat diartikan sebagai pelanggan dengan kebutuhan khusus atau segmen premium, yang meskipun jumlahnya tidak banyak, namun berpotensi memberikan nilai transaksi yang lebih besar.
-
-
-Cluster 2 – Pelanggan dengan Perilaku Beragam
-
-Cluster 2 memiliki jumlah data yang cukup besar dengan pola transaksi yang lebih bervariasi. Hal ini menandakan bahwa pelanggan dalam cluster ini memiliki perilaku pembelian yang tidak seragam, baik dari sisi harga maupun jumlah tiket. Dari sudut pandang bisnis, cluster ini dapat dikategorikan sebagai pelanggan yang lebih sensitif terhadap harga atau promosi, sehingga strategi diskon atau penawaran khusus dapat lebih efektif untuk segmen ini.
 """
