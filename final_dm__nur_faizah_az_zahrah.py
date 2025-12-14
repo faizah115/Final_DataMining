@@ -114,12 +114,6 @@ uploaded_file = st.file_uploader(
 if uploaded_file is None:
     st.info("Silakan upload file CSV untuk memulai analisis")
 
-else:
-    df = pd.read_csv(uploaded_file)
-
-    st.subheader("Data Awal")
-    st.dataframe(df.head())
-
 
 # ===============================
 # DATA CLEANING
