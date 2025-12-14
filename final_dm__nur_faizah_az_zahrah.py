@@ -79,6 +79,54 @@ if "Date" in df.columns:
 # Ukuran data akhir
 st.write("Ukuran data setelah cleaning:", df.shape)
 
+# ===============================
+# FEATURE ENGINEERING (TIME-BASED)
+# ===============================
+if "Date" in df.columns and pd.api.types.is_datetime64_any_dtype(df["Date"]):
+
+    # Feature engineering waktu
+    df["Month"] = df["Date"].dt.month
+    df["Day"] = df["Date"].dt.day
+    df["DayOfWeek"] = df["Date"].dt.dayofweek
+
+    st.subheader("📊 Visualisasi Fitur Waktu")
+
+    col1, col2, col3 = st.columns(3)
+
+    # -------------------------------
+    # Distribusi Transaksi per Bulan
+    # -------------------------------
+    with col1:
+        fig_m, ax_m = plt.subplots()
+        sns.countplot(x="Month", data=df, ax=ax_m)
+        ax_m.set_title("Distribusi Transaksi per Bulan")
+        ax_m.set_xlabel("Bulan")
+        ax_m.set_ylabel("Jumlah Data")
+        st.pyplot(fig_m)
+
+    # -------------------------------
+    # Distribusi Transaksi per Hari
+    # -------------------------------
+    with col2:
+        fig_d, ax_d = plt.subplots()
+        sns.countplot(x="Day", data=df, ax=ax_d)
+        ax_d.set_title("Distribusi Transaksi per Hari")
+        ax_d.set_xlabel("Hari")
+        ax_d.set_ylabel("Jumlah Data")
+        st.pyplot(fig_d)
+
+    # ---------------------------------------
+    # Distribusi Transaksi per Hari dalam Minggu
+    # ---------------------------------------
+    with col3:
+        fig_w, ax_w = plt.subplots()
+        sns.countplot(x="DayOfWeek", data=df, ax=ax_w)
+        ax_w.set_title("Distribusi Transaksi per Hari dalam Minggu")
+        ax_w.set_xlabel("Hari (0=Senin)")
+        ax_w.set_ylabel("Jumlah Data")
+        st.pyplot(fig_w)
+
+
 
 # ===============================
 # ENCODING
