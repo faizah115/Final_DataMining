@@ -52,19 +52,37 @@ else:
 
 # 1. DATA CLEANING
 st.subheader("🧹 Data Cleaning")
+
+# Ukuran data awal
 st.write("Ukuran data awal:", df.shape)
+
+# Missing value
 st.write("Missing value per kolom:")
 st.write(df.isnull().sum())
 
+# Jumlah data duplikat sebelum dihapus
+jumlah_duplikat = df.duplicated().sum()
+st.write("Jumlah data duplikat sebelum cleaning:", jumlah_duplikat)
+
+# Hapus data duplikat
 df = df.drop_duplicates()
+
+# Tampilkan informasi penghapusan duplikat
+st.write("Jumlah data duplikat setelah cleaning:", df.duplicated().sum())
+
+# Konversi kolom Date
 if "Date" in df.columns:
-        df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+    st.write("Kolom Date berhasil dikonversi ke format datetime.")
+
+# Ukuran data setelah cleaning
 st.write("Ukuran data setelah cleaning:", df.shape)
+
 
 """Kode data cleaning tersebut digunakan untuk mengevaluasi dan memastikan kualitas dataset sebelum dilakukan analisis lebih lanjut, dengan cara menampilkan ukuran data awal, memeriksa jumlah missing value pada setiap kolom, mengecek keberadaan data duplikat, menghapus data duplikat jika ada, serta mengonversi kolom Date ke format datetime agar sesuai untuk analisis. Setelah proses pembersihan dilakukan, kode kembali menampilkan kondisi data untuk memastikan tidak ada perubahan yang tidak diinginkan, lalu menyimpan dataset hasil pembersihan ke dalam file data_cleaned.csv sebagai data siap olah.
 
 
-Berdasarkan output yang dihasilkan, dataset memiliki 500 baris dan 9 kolom baik sebelum maupun sesudah proses data cleaning. Seluruh kolom, seperti Transaction_ID, City, Gender, Date, Ticket_Quantity, Ticket_Price, Airline, Payment_Method, dan Total, tidak memiliki missing value (nilai 0 di semua kolom) dan tidak ditemukan data duplikat (0). Hal ini menunjukkan bahwa dataset sudah dalam kondisi bersih dan konsisten, sehingga proses data cleaning tidak mengubah ukuran data. Dengan demikian, dataset tersebut layak dan siap digunakan untuk tahap analisis selanjutnya seperti clustering dan regresi tanpa risiko bias akibat data kosong atau duplikasi.
+Pada tahap Data Cleaning tersebut, beberapa langkah pembersihan dan pengecekan kualitas data dilakukan untuk memastikan dataset siap dianalisis. Pertama, ditampilkan ukuran data awal untuk mengetahui jumlah baris dan kolom sebelum proses pembersihan. Selanjutnya, dilakukan pemeriksaan missing value pada setiap kolom menggunakan df.isnull().sum() untuk memastikan tidak ada nilai kosong yang dapat memengaruhi hasil analisis. Setelah itu, data duplikat dihapus menggunakan drop_duplicates() agar tidak terjadi pengulangan data yang dapat menimbulkan bias. Kemudian, jika terdapat kolom Date, nilainya dikonversi ke format datetime agar dapat digunakan dengan benar pada proses analisis lanjutan, seperti feature engineering berbasis waktu. Terakhir, ditampilkan kembali ukuran data setelah cleaning untuk memastikan bahwa proses pembersihan telah berjalan dengan baik dan untuk melihat apakah terjadi perubahan jumlah data.
 """
 
 
@@ -87,7 +105,7 @@ X_scaled = scaler.fit_transform(df_numeric)
 
 
 
-# 4. CLUSTERING (TANPA ENSEMBLE)
+# 4. CLUSTERING
 st.subheader("Clustering (Agglomerative)")
 n_cluster = st.slider("Pilih jumlah cluster", 2, 5, 3)
 cluster_model = AgglomerativeClustering(n_clusters=n_cluster)
@@ -120,6 +138,8 @@ sns.scatterplot(
 ax1.set_title("Visualisasi Clustering (PCA)")
 st.pyplot(fig1)
 
+
+
 """Kode ini digunakan untuk melakukan reduksi dimensi data menggunakan Principal Component Analysis (PCA) dengan tujuan utama mempermudah visualisasi hasil clustering. PCA mereduksi data berdimensi tinggi menjadi dua komponen utama (PCA1 dan PCA2) yang tetap mempertahankan informasi variansi terbesar dari data asli. Hasil transformasi tersebut kemudian disimpan ke dalam DataFrame sebagai dua kolom baru, sehingga data dapat divisualisasikan dalam bentuk grafik dua dimensi tanpa menghilangkan pola utama yang terbentuk dari proses clustering.
 
 
@@ -132,6 +152,44 @@ if "Date" in df.columns:
     df["Month"] = df["Date"].dt.month
     df["Day"] = df["Date"].dt.day
     df["DayOfWeek"] = df["Date"].dt.dayofweek
+
+    st.subheader("Visualisasi Fitur Waktu")
+
+    col1, col2, col3 = st.columns(3)
+
+    # =====================
+    # Distribusi Bulan
+    # =====================
+    with col1:
+        fig_m, ax_m = plt.subplots()
+        sns.countplot(x="Month", data=df, ax=ax_m)
+        ax_m.set_title("Distribusi Transaksi per Bulan")
+        ax_m.set_xlabel("Bulan")
+        ax_m.set_ylabel("Jumlah Data")
+        st.pyplot(fig_m)
+
+    # =====================
+    # Distribusi Hari
+    # =====================
+    with col2:
+        fig_d, ax_d = plt.subplots()
+        sns.countplot(x="Day", data=df, ax=ax_d)
+        ax_d.set_title("Distribusi Transaksi per Hari")
+        ax_d.set_xlabel("Hari")
+        ax_d.set_ylabel("Jumlah Data")
+        st.pyplot(fig_d)
+
+    # =====================
+    # Distribusi Hari dalam Minggu
+    # =====================
+    with col3:
+        fig_w, ax_w = plt.subplots()
+        sns.countplot(x="DayOfWeek", data=df, ax=ax_w)
+        ax_w.set_title("Distribusi Transaksi per Hari dalam Minggu")
+        ax_w.set_xlabel("Hari ke- (0=Senin)")
+        ax_w.set_ylabel("Jumlah Data")
+        st.pyplot(fig_w)
+
 
 
 # 6. ENSEMBLE REGRESSION (RIDGE + LASSO + ELASTICNET)
@@ -152,10 +210,28 @@ for cluster in sorted(df["Cluster"].unique()):
 
     X = X.select_dtypes(include=[np.number])
 
+
+
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
+
+
+with open("train_cluster_0.csv", "rb") as f:
+    st.download_button(
+        "Download Train Cluster 0",
+        f,
+        file_name="train_cluster_0.csv"
+    )
+
+with open("test_cluster_0.csv", "rb") as f:
+    st.download_button(
+        "Download Test Cluster 0",
+        f,
+        file_name="test_cluster_0.csv"
+    )
+
 
     # Model regresi ensemble
     ridge = Ridge(alpha=1.0)
@@ -179,19 +255,18 @@ for cluster in sorted(df["Cluster"].unique()):
         "MSE": mean_squared_error(y_test, y_pred),
         "R2_Score": r2_score(y_test, y_pred)
     })
-
-
 ensemble_regression_df = pd.DataFrame(ensemble_results)
 
 st.subheader("Hasil Ensemble Regresi per Cluster")
 st.dataframe(ensemble_regression_df)
 
-
-
 """Kode ini digunakan untuk melakukan ensemble regression pada setiap cluster hasil clustering, dengan tujuan memprediksi nilai Ticket_Price secara lebih stabil dan akurat. Proses dimulai dengan memisahkan data berdasarkan label cluster, kemudian untuk setiap cluster dilakukan pemodelan regresi menggunakan tiga algoritma regresi berbeda, yaitu Ridge, Lasso, dan ElasticNet, tanpa menggunakan Linear Regression. Fitur numerik dipilih sebagai variabel input, sementara Ticket_Price dijadikan sebagai variabel target. Prediksi akhir diperoleh dengan cara merata-ratakan hasil prediksi dari ketiga model regresi (ensemble averaging), sehingga dapat mengurangi bias dari satu model tunggal. Kinerja model kemudian dievaluasi menggunakan Mean Squared Error (MSE) dan R² Score.
 
 
-Output menunjukkan hasil evaluasi ensemble regression pada setiap cluster yang terbentuk dari proses clustering sebelumnya. Cluster 0 memiliki 202 data dengan nilai MSE sebesar 2.67×10¹⁰ dan R² Score 0.860, yang berarti model mampu menjelaskan sekitar 86% variasi harga tiket pada cluster tersebut. Cluster 1 berisi 122 data dengan MSE paling kecil (2.94×10⁹) dan R² Score tertinggi (0.976), menandakan bahwa model regresi bekerja sangat baik dan paling akurat pada cluster ini. Sementara itu, Cluster 2 memiliki 176 data dengan MSE sebesar 3.15×10¹⁰ dan R² Score 0.798, yang menunjukkan performa model masih baik namun tidak seoptimal cluster lainnya. Secara keseluruhan, nilai R² yang tinggi pada semua cluster membuktikan bahwa penggunaan ensemble regression (Ridge, Lasso, dan ElasticNet) efektif dalam memodelkan harga tiket pada masing-masing segmen data hasil clustering.
+Pada Cluster 0, terdapat 202 data dengan nilai R² sebesar 0,8033, yang menunjukkan bahwa sekitar 80% variasi harga tiket pada cluster ini dapat dijelaskan oleh model regresi. Nilai MSE yang relatif besar menunjukkan adanya variasi harga yang cukup tinggi dalam cluster ini, sehingga tingkat kesalahan prediksi masih cukup signifikan meskipun model sudah mampu menangkap pola umum data.
+Cluster 1 memiliki 122 data dan menunjukkan performa terbaik, dengan R² sebesar 0,9719 dan nilai MSE yang paling kecil dibandingkan cluster lainnya. Hal ini mengindikasikan bahwa model ensemble regression sangat baik dalam memprediksi harga tiket pada cluster ini. Pola data yang lebih homogen menyebabkan hubungan antara variabel input dan harga tiket dapat dimodelkan secara lebih akurat.
+Sementara itu, Cluster 2 terdiri dari 176 data dengan nilai R² sebesar 0,7653, yang berarti sekitar 76% variasi harga tiket dapat dijelaskan oleh model. Nilai MSE yang cukup besar menunjukkan bahwa karakteristik data pada cluster ini lebih beragam, sehingga tingkat kesalahan prediksi lebih tinggi dibandingkan Cluster 1, namun masih dalam kategori performa yang cukup baik.
+Secara keseluruhan, hasil ini menunjukkan bahwa penerapan ensemble regression mampu memberikan performa prediksi yang baik pada setiap cluster, dengan akurasi yang bervariasi tergantung pada karakteristik masing-masing cluster. Pendekatan ini efektif karena mengombinasikan beberapa model regresi, sehingga hasil prediksi menjadi lebih stabil dan tidak bergantung pada satu model tunggal.
 """
 
 
