@@ -170,22 +170,6 @@ Output dari kode ini berupa pembagian data ke dalam beberapa cluster sesuai juml
 """
 
 
-# 5. PCA UNTUK VISUALISASI CLUSTER
-pca = PCA(n_components=2)
-X_pca = pca.fit_transform(X_scaled)
-df["PCA1"] = X_pca[:, 0]
-df["PCA2"] = X_pca[:, 1]
-fig1, ax1 = plt.subplots()
-sns.scatterplot(
-        x="PCA1",
-        y="PCA2",
-        hue="Cluster",
-        data=df,
-        palette="Set2",
-        ax=ax1
-    )
-ax1.set_title("Visualisasi Clustering (PCA)")
-st.pyplot(fig1)
 
 
 
@@ -294,8 +278,6 @@ for cluster in sorted(df["Cluster"].unique()):
         "MSE": mean_squared_error(y_test, y_pred),
         "R2_Score": r2_score(y_test, y_pred)
     })
-
-
 
 
 st.subheader("Download Data Train & Test per Cluster")
